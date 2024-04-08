@@ -6,24 +6,14 @@
 # cd back to repo root 
 cd ..
 
-# Load environment variables - DON'T THINK THIS IS NECESSARY ACCORDING TO CGPT & SLACK
-source .env
-
-# Build Docker images to ensure latest images are pulled & Build | Start containers using docker-compose up -d in detatched mode
-echo "Building Mage Docker Container..."
-docker-compose build
-
-# Check if build was successful before continuing
-if [ $? -eq 0 ]; then
-    echo "Build completed successfully."
-else
-    echo "Build failed. Exiting script."
-    exit 1
-fi
+source_directory="/home/${USER}/.gcp"
+destination_directory="/home/${USER}/usgs_earthquake_data/src/mage/"
+sudo cp -r "$source_directory" "$destination_directory"
 
 # Start containers using docker-compose up -d in detached mode
 echo "Starting containers..."
 docker-compose up -d
+
 
 # Check if containers started successfully before continuing
 if [ $? -eq 0 ]; then
