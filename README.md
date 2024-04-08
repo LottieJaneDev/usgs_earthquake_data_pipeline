@@ -39,7 +39,7 @@ _Author | Lottie Jane Pollard_
 
 **IMPORTANT;** _to skip the project overview & head staight to set up, click [here.](/home/lottie/usgs_earthquake_data/setup.md) Do not clone the repository locally, the setup will guide you & clone the repository automatically._
 
-</div>
+
 
 ------------
 
@@ -57,7 +57,11 @@ _Author | Lottie Jane Pollard_
 
 
 ------------------------
+
+</div>
+
 <div align="center">
+
 ## _Project Overview_
 
 The project leverages data from the U.S. Geological Survey (USGS), the science arm of the Department of the Interior, providing essential earth, water, biological, and mapping data for environmental, resource, and public safety decision-making. Established by Congress in 1879, the USGS continuously evolves its scientific endeavors to meet societal needs.
