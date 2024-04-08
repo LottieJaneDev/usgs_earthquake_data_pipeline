@@ -1,0 +1,14 @@
+services:
+  mage:
+    image: mageai/mageai:latest
+    container_name: mage
+    command: mage start /home/src/src/mage/${MAGE_PROJECT_NAME}
+    build:
+      context: ./src/mage/
+      dockerfile: Dockerfile
+    ports:
+      - 6789:6789
+    volumes:
+      - .:/home/src/
+      - ~${SERVICE_ACCOUNT_KEYS}:/.gcp/credentials.json
+    restart: on-failure:5

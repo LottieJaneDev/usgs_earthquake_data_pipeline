@@ -1,0 +1,88 @@
+
+# Crash log files
+crash.log
+crash.*.log
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+.idea
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# Ignore IDE and editor files
+.idea
+*.vscode
+
+# Mage files 
+
+/mage_data*
+*.json
+**/__pycache__/
+
+# Mage Docker specific files
+.bash_history
+.jupyter/
+.local/
+.npm/
+.python_history
+mage_ai/frontend/package-lock.json
+docker-compose.override.yml
+.DS_Store
+.idea
+**google_credentials.json
+**logs/
+**.env
+**__pycache__/
+.history
+
+# data files
+mage_ai/server/data/files/**
+default_repo
+instance_metadata.json
+~/.mage_data
+
+# Mage with Cloud Run - remove if I don't use it #####
+
+# DB files
+*.db
+
+# Ignore DuckDB
+*.duckdb
+*.wal
+
+#############################################################
+
+# Terraform files
+**/.terraform*
+*.zip
+*.tfstate
+*.tfstate.*
+**.terraform
+**.terraform.lock.*
+*.plan
+*.lock.hcl
+*.tfvars
+*.tfvars.json
+
+# Environments
+.env
+.venv
+dev.env
+.DS_Store
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Other 
+
+TODO.md
+scratchpad.txt
