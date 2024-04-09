@@ -235,15 +235,25 @@ DBT Transformations - DBT took the raw data from BigQuery native table (`usgs_20
 
 There are two pipelines in Mage; `"usgs_ingest_historic"` & `"usgs_30_min_intervals"`
 
-`"usgs_ingest_historic"` - is triggered via the shell script to ingest the previous 30 days of data to initially populate your dataset. This pipeline will create your BigQuery table & save the parquet files to your Google Cloud Storage Bucket. 
+### Pipeline One | "usgs_earthquake_data_ingest_historic"
 
->Note; _This pipeline can be manually ammended to set a start date & end date of your choosing. You can propagate your dataset as wide as you wish, the only limitations here are 20,000 rows per API Call, but no daily limitation. Please note; if you run this pipeline irresponsibly you may incur duplicate data. See the SQL file [here](link) for deduplication query should you accidentally run into this problem._
+`"usgs_earthquake_data_ingest_historic"` - is ?????? triggered via the shell script ???????? to ingest the previous 30 days of data to initially populate your dataset. This pipeline will create your BigQuery table, within the BigQuery Dataset you have provisioned through Terraform & save the parquet files to your Google Cloud Storage Bucket. 
 
-INSERT DIAGRAM HERE
+>Note; For an extra challenge!! Within the first pipeline block for there is the option to adjust the dates & get data as far back as you want to propagate your dataset! (Only as far as 1st January 2024 unless you disable the unit tests within the rest of the pipeline). See if you can use the `start_time` & `end_time` parameters to fill your dataset with data for the complete year! 
 
-`"usgs_30_min_intervals"` - this pipeline is triggered automatically when the above finishes. It runs on a 30 minute trigger that can be changed to more/less frequent if desired. It averages around 6 earthquakes every run, which isn't a large amount of data but I wanted the dashboard to be as up-to-date as possible. The difference between the code for both pipelines is minimal but significant. This pipeline will check if a parquet file exists for the current date & appends the rows to it as it has to do this every 30 minutes. This pipeline is also where the DBT integration comes into play, where you'll find the staging, dimensional & fact models alongside the Mage blocks. 
+>Note; _This pipeline can be manually ammended to set a start date & end date of your choosing. You can propagate your dataset as wide as you wish, the only limitations here are 20,000 rows per API Call, but no daily limitation on API calls. Please note; if you run this pipeline irresponsibly you may incur duplicate data. See the SQL file [here](src/bigquery/BiQuery_SQL_Queries.sql) for deduplication query should you accidentally run into this problem._
 
-INSERT DIAGRAM HERE
+> Alternatively, I have set my Google Cloud Storage bucket to public [here](https://storage.googleapis.com/my_bucket/data.csv) you can read this into your BigQuery table using a `SQL Query` tab if you wish to.
+
+<img src="images/usgs_ingest_historic_earthquake_data_pipeline.jpg" alt="Seismic Waves" height="400" width="1000">
+
+-----------------------------
+
+### Pipeline Two | "usgs_earthquake_data_30min_intervals"
+
+`"usgs_earthquake_data_30min_intervals"` - this pipeline is triggered automatically when the above finishes using a 'sensor' block. It runs on a 30 minute trigger that can be changed to more/less frequent if desired via the 'Triggers' section of the Mage UI. It averages around 6 earthquakes every run, which isn't a large amount of data but I wanted the dashboard to be as up-to-date as possible. The difference between the code for both pipelines is minimal but significant. This pipeline will check if a parquet file exists for the current date & appends the rows to it as it has to do this every 30 minutes. This pipeline is also where the DBT integration comes into play, where you'll find the staging, dimensional & fact models alongside the Mage blocks. 
+
+<img src="images/usgs_ingest_30min_intervals_earthquake_data_pipeline.jpg" alt="Seismic Waves" height="400" width="1000">
 
 -----------------------------
 
@@ -280,8 +290,15 @@ The data is partitioned & clustered in DBT before CI/CD into the Gold Layer BigQ
 ### Testing **EDIT THIS SECTION**
 
 ![Mage](https://img.shields.io/badge/Mage-8a2be2)
+![dbt](https://img.shields.io/badge/dbt-1.7-262A38?style=flat&logo=dbt&logoColor=FF6849&labelColor=262A38)
 
-MAGE Block Tests
+Overall, the comprehensive testing approach adopted in this project aims to minimise errors, detect issues early in the development process, and maintain the reliability and accuracy of the data processing pipeline. A robust testing strategy has been implemented to ensure the reliability, accuracy, and integrity of the data processing pipeline. The testing framework encompasses various aspects, including unit tests, integration tests, and data validation checks. Unit tests are used to verify the functionality of individual components, such as data loaders, transformers, and exporters. These tests validate specific functionalities and edge cases, ensuring that each component performs as expected.
+
+Integration tests are employed to validate the interactions between different modules and external systems. For instance, integration tests are conducted to verify data export functions to external data warehouses, such as BigQuery. These tests validate the end-to-end functionality of the data pipeline, from data ingestion to export, ensuring seamless data flow and integration with external services.
+
+DBT: ADD IN MORE HERE ABOUT THE DBT MODELS 
+
+Data validation tests are performed to ensure the quality and correctness of the processed data. These tests include checks for data consistency, completeness, and adherence to predefined schemas. For example, data validation tests may verify that exported data meets certain quality standards, such as correct formatting, presence of required fields, and absence of anomalies.
 
 -----------------------
 

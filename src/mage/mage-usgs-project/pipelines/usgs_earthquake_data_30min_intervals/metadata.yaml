@@ -3,21 +3,23 @@ blocks:
   color: null
   configuration: {}
   downstream_blocks:
-  - transform_timestamp_columns
+  - transformations_timestamps_add_partition_cluster_columns
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
   name: load_usgs_earthquake_data
   retry_config: null
-  status: executed
+  status: updated
   timeout: null
   type: data_loader
   upstream_blocks: []
   uuid: load_usgs_earthquake_data
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
-  configuration: {}
+  configuration:
+    file_source:
+      path: transformers/transformations_timestamps_add_partition_cluster_columns.py
   downstream_blocks:
   - write_to_google_cloud_storage_bucket
   - write_rows_to_bigquery
@@ -25,15 +27,15 @@ blocks:
   executor_type: local_python
   has_callback: false
   language: python
-  name: transform_timestamp_columns
+  name: transformations_timestamps_add_partition_cluster_columns
   retry_config: null
   status: executed
   timeout: null
   type: transformer
   upstream_blocks:
   - load_usgs_earthquake_data
-  uuid: transform_timestamp_columns
-- all_upstream_blocks_executed: true
+  uuid: transformations_timestamps_add_partition_cluster_columns
+- all_upstream_blocks_executed: false
   color: null
   configuration: {}
   downstream_blocks: []
@@ -47,9 +49,9 @@ blocks:
   timeout: null
   type: data_exporter
   upstream_blocks:
-  - transform_timestamp_columns
+  - transformations_timestamps_add_partition_cluster_columns
   uuid: write_to_google_cloud_storage_bucket
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration: {}
   downstream_blocks: []
@@ -59,11 +61,11 @@ blocks:
   language: python
   name: write_rows_to_BigQuery
   retry_config: null
-  status: executed
+  status: updated
   timeout: null
   type: data_exporter
   upstream_blocks:
-  - transform_timestamp_columns
+  - transformations_timestamps_add_partition_cluster_columns
   uuid: write_rows_to_bigquery
 cache_block_output_in_memory: false
 callbacks: []

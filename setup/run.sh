@@ -23,9 +23,23 @@ else
     exit 1
 fi
 
-echo "All tasks completed successfully."
+echo "The Mage Docker container is now up and running."
 
 sleep 3
 
 # Print the link to localhost port 6789
-echo "Access the Mage UI here: http://localhost:6789"
+echo "Please Access the Mage UI here: http://localhost:6789"
+
+# may need to add the code back in to forward the port automatically 
+
+echo "This script will now trigger the main pipeline of the project"
+
+sleep 15
+
+# need to cd to the main mage project here before running docker exec 
+
+# start the project 
+docker run -it -p 6789:6789 -v $(pwd):/home/src mageai/mageai /app/run_app.sh mage start [project_name]
+
+# trigger the piepline
+docker exec mage mage run /home/src/src/mage/mage-usgs-project usgs_earthquake_data_ingest_historic

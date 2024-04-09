@@ -91,10 +91,6 @@ resource "google_bigquery_dataset" "bq_dataset" {
 
   description = "This dataset contains the USGS raw data from Mage Ingestion"
 
-  # default_table_expiration_ms = 2592000000 # 30 days
-
-  default_partition_expiration_ms = 2592000000 # 30 days
-
   labels = {
     environment = "development"
     department  = "data-engineering"

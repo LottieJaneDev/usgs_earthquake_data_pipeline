@@ -8,6 +8,8 @@ import pandas as pd
 import pyarrow as pa
 import pyarrow.parquet as pq
 from datetime import datetime
+import unittest
+from unittest.mock import patch, MagicMock
 
 if 'data_exporter' not in globals():
     from mage_ai.data_preparation.decorators import data_exporter
@@ -59,3 +61,48 @@ def export_data_to_google_cloud_storage(df: DataFrame, **kwargs) -> None:
 
     print(f"Total number of rows in the file: {total_rows}")
     print(f"\nData exported to {bucket_name}/{object_key} in Google Cloud Storage")
+
+
+@test
+class TestDataExporterToGoogleCloudStorage(unittest.TestCase):
+
+    def setUp(self):
+        # Create a sample DataFrame for testing
+        self.df = pd.DataFrame({
+            'time': pd.date_range(start='2023-04-01', end='2023-04-03'),
+            'magnitude': [5.0, 6.2, 4.5]
+        })
+
+    @patch('mage_ai.exporter.GoogleCloudStorage.with_config')
+    @patch('mage_ai.exporter.pq.write_table')
+    def test_export_data_to_google_cloud_storage(self, mock_write_rows, mock_with_config):
+        
+        # acts as if file doens't already exist 
+        mock_exists = MagicMock(return_value=False)
+        mock_with_config.return_value.exists = mock_exists
+
+        export_data_to_google_cloud_storage(self.df)
+
+        # Check if the Parquet file is written
+        mock_write_rows.assert_called_once()
+
+    @patch('mage_ai.exporter.GoogleCloudStorage.with_config')
+    @patch('mage_ai.exporter.pq.read_table')
+    @patch('mage_ai.exporter.pq.write_table')
+    def test_export_data_to_google_cloud_storage_update(self, mock_write_rows, mock_read_rows, mock_with_config):
+        # Mock existing table
+        existing_df = pd.DataFrame({
+            'time': pd.date_range(start='2024-04-01', end='2024-04-02'),
+            'magnitude': [3.0, 4.5]
+        })
+
+        # retuns as though a file already exists
+        mock_read_rows.return_value.to_pandas.return_value = existing_df
+
+        mock_exists = MagicMock(return_value=True)
+        mock_with_config.return_value.exists = mock_exists
+
+        export_data_to_google_cloud_storage(self.df)
+
+        # Check if the Parquet file is updated with merged data
+        mock_write_rows.assert_called_once()
