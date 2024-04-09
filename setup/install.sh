@@ -61,8 +61,11 @@ append_custom_lines() {
     echo "Appending custom lines to .env file..."
     cat <<EOF >> .env
 # Custom lines added by script
-VM_SERVICE_ACCOUNT_KEYS_FILE_PATH="/.gcp/"
 ENV_FILE="/home/${USER}/usgs_earthquake_data/.env"
+VM_SERVICE_ACCOUNT_KEYS_FILE_PATH="/home/${USER}/.gcp/"
+VM_TERRAFORM_SERVICE_ACCOUNT_FILE_PATH="/home/$USER/.gcp/terraform-service-account.json" 
+VM_MAGE_SERVICE_ACCOUNT_FILE_PATH="/home/${USER}/.gcp/mage-service-account.json"
+MAGE_GOOGLE_SERVICE_ACCOUNT="~/mage/.gcp/mage-service-account.json"
 EOF
 }
 
@@ -71,8 +74,6 @@ EOF
 update_env "VM_NAME"
 update_env "LOCAL_TERRAFORM_SERVICE_ACCOUNT_FILE_PATH"
 update_env "LOCAL_MAGE_SERVICE_ACCOUNT_FILE_PATH"
-update_env "VM_TERRAFORM_SERVICE_ACCOUNT_FILE_PATH"
-update_env "VM_MAGE_SERVICE_ACCOUNT_FILE_PATH"
 update_env "MAGE_PROJECT_NAME"
 update_env "GCP_PROJECT_NAME"
 update_env "GCP_LOCATION"
@@ -92,6 +93,7 @@ echo "Variables updated in .env file."
 
 # OPTION A:
 # Transfer Service Account Keys with Safe File Transfer Protocol 
+
 # sftp $VM_NAME <<EOF
 # put ${LOCAL_MAGE_SERVICE_ACCOUNT_FILE_PATH} $HOME/.gcp/mage-service-account.json
 # EOF
@@ -101,11 +103,10 @@ echo "Variables updated in .env file."
 # EOF
 
 # # OPTION B: 
-# gcloud compute scp ${LOCAL_MAGE_SERVICE_ACCOUNT_FILE_PATH} ${USER}@${VM_NAME}:${SERVICE_ACCOUNT_KEYS} --zone ${GCP_REGION}
-# gcloud compute scp ${LOCAL_TERRAFORM_SERVICE_ACCOUNT_FILE_PATH} ${USER}@${VM_NAME}:${SERVICE_ACCOUNT_KEYS} --zone ${GCP_REGION}
+# gcloud compute scp ${LOCAL_MAGE_SERVICE_ACCOUNT_FILE_PATH} ${USER}@${VM_NAME}:${VM_SERVICE_ACCOUNT_KEYS_FILE_PATH} --zone ${GCP_REGION}
+# gcloud compute scp ${LOCAL_TERRAFORM_SERVICE_ACCOUNT_FILE_PATH} ${USER}@${VM_NAME}:${VM_SERVICE_ACCOUNT_KEYS_FILE_PATH} --zone ${GCP_REGION}
 
-# # Create a directory for GCP credentials - UNCOMMENT & REORDER IF IT WORKS ON ANOTHER MACHINE 
-# mkdir -p $HOME/.gcp
+
 
 ##########################################################################
 

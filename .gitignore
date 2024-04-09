@@ -22,6 +22,9 @@ ipython_config.py
 
 # Mage files 
 
+.ssh_tunnel
+__init__.py
+.gcp/
 /mage_data*
 *.json
 **/__pycache__/
@@ -86,3 +89,4 @@ venv.bak/
 
 TODO.md
 scratchpad.txt
+.gitignore

@@ -91,17 +91,13 @@ resource "google_bigquery_dataset" "bq_dataset" {
 
   description = "This dataset contains the USGS raw data from Mage Ingestion"
 
-  default_table_expiration_ms = 2592000000 # 30 days
-
-  default_partition_expiration_ms = 2592000000 # 30 days
-
   labels = {
     environment = "development"
     department  = "data-engineering"
   }
 
   provisioner "local-exec" {
-    command = "echo 'Waiting for the API to be enabled....'; sleep 20"
+    command = "echo 'Waiting for the API to be enabled/disabled....'; sleep 20"
   }
 
   # This provisioner ensures a delay of 20 seconds after the google_project_service.enabled_apis resource is created

@@ -13,7 +13,7 @@ If you are unfamiliar with this way of working, I highly recommend following thi
 
     > NOTE:  You will need to provide a payment method to set up your GCP account, but nothing will be taken until after your 90 day free trial or your $300 free credits expire.
 
-2. Create a new project named `'usgs-earthquake-data'`
+2. Create a new project named `'usgs-data'`
 
 3. Enable the `Service Usage API` manually to allow for smooth interaction between Terraform & GCP during resource provisioning later on. Click here to enable the API for your project => ['ENABLE SERVICE USAGE API'](https://console.cloud.google.com/apis/library/serviceusage.googleapis.com/)
 
@@ -177,7 +177,10 @@ NB - if i do use this path then add into the further ideas - using GCP bigquery 
 * Click on `"Add Key"` and select `"Create new key"`
 * Choose the key type as JSON
 * Click on `"Create"` this will download a .JSON file containing the service account's credentials to your **LOCAL MACHINE'S downloads directory**
-* Navigate to this folder & rename the key as it will download with a randomised name
+* They will download with a random name, navigate to your downloads folder & rename the keys as per below naming convention:
+
+  * `mage-service-account.json`
+  * `terraform-service-account.json`
 
 > ! Rename them as one at a time after download as you will get confused which is which. I recommend simply adding "mage" or "terraform" as a prefix for example; `"terraform-usgs-earthquake-data-18ebd2b625cf.json"` & `"mage-usgs-earthquake-data-26edd8b928cl.json"`
 
