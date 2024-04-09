@@ -63,6 +63,10 @@ To run this project locally, you will need to adjust the set up instructions and
     * *Install Docker on the Virtual Machine*
     * *Install Terraform on the Virtual Machine*
 
+> Note; I wasn't able to `sftp` (secure file transfer protocol) from inside the VM to 'get' the service account keys into the VM - I think maybe due to my company security restrictions. I also wasn't able to use `gcloud` library with `gcloud scp` (secure copy protocol) again, due to security restictions. I eventually had to opt for prompting the user to 'drag and drop' their Service Account Keys into the `.gcp` folder on the VM. The code & environment variables for the other options are still available but commented out. Depending on your environment & restrictions you are free to choose the most suitable option for your case. 
+
+>> You will need to either comment out / uncomment the code in the install.sh or you can ignore, the commands should fail gracefully.  Option 'LAST RESORT' (line 12-15) is currently in play (prompting you to drag and drop your files to VS Code), if you are able to do `sftp` you should use Option A (line 94 - 106) & if you want to use `gcloud scp` you should use Option B (line 108 - 110) - I hope this makes sense - Slack me if you have any issues 😄
+
 7. Don't forget to check docker has completed installation after the install script by closing the remote connection completely & starting it back up again. This is to refresh the User Group Policies and enforce the new policy where you are an authorised user. 
 
     ```bash

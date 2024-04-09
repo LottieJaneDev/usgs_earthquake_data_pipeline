@@ -6,24 +6,14 @@
 # cd back to repo root 
 cd ..
 
-# Load environment variables - DON'T THINK THIS IS NECESSARY ACCORDING TO CGPT & SLACK
-source .env
-
-# Build Docker images to ensure latest images are pulled & Build | Start containers using docker-compose up -d in detatched mode
-echo "Building Mage Docker Container..."
-docker-compose build
-
-# Check if build was successful before continuing
-if [ $? -eq 0 ]; then
-    echo "Build completed successfully."
-else
-    echo "Build failed. Exiting script."
-    exit 1
-fi
+source_directory="/home/${USER}/.gcp"
+destination_directory="/home/${USER}/usgs_earthquake_data/src/mage/"
+sudo cp -r "$source_directory" "$destination_directory"
 
 # Start containers using docker-compose up -d in detached mode
 echo "Starting containers..."
 docker-compose up -d
+
 
 # Check if containers started successfully before continuing
 if [ $? -eq 0 ]; then
@@ -33,9 +23,23 @@ else
     exit 1
 fi
 
-echo "All tasks completed successfully."
+echo "The Mage Docker container is now up and running."
 
 sleep 3
 
 # Print the link to localhost port 6789
-echo "Access the Mage UI here: http://localhost:6789"
+echo "Please Access the Mage UI here: http://localhost:6789"
+
+# may need to add the code back in to forward the port automatically 
+
+echo "This script will now trigger the main pipeline of the project"
+
+sleep 15
+
+# need to cd to the main mage project here before running docker exec 
+
+# start the project 
+docker run -it -p 6789:6789 -v $(pwd):/home/src mageai/mageai /app/run_app.sh mage start [project_name]
+
+# trigger the piepline
+docker exec mage mage run /home/src/src/mage/mage-usgs-project usgs_earthquake_data_ingest_historic
