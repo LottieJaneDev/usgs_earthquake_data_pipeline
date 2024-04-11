@@ -1,0 +1,2 @@
+packages:
+    - local: ./usgs_earthquake_data

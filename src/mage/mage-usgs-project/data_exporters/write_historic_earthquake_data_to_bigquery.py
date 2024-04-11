@@ -40,7 +40,7 @@ def export_data_to_big_query(df: DataFrame) -> None:
     config_path = path.join(get_repo_path(), 'io_config.yaml')
     config_profile = 'default'
 
-    # define schema for parsing to loadconnfig
+    # define schema for parsing to loadconfig
     schema = [
     SchemaField("time", "TIMESTAMP"),
     SchemaField("latitude", "FLOAT"),

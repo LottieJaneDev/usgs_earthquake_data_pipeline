@@ -82,7 +82,13 @@ To run this project locally, you will need to adjust the set up instructions and
 
 ## Project Start 
 
-1. Spin up the project resources using Terraform (Infrastructure as Code) (Iac) follow the set [Terraform start guide here](src/terraform/README.md)
+1. Spin up the project resources using Terraform (Infrastructure as Code) (Iac) follow the [Terraform start guide here](src/terraform/README.md)
+
+2. Spin up the Docker Container for Mage, follow the [Mage Project Start guide here](src/mage/README.md) this includes the DBT analytics engineering layer. 
+
+3. Visit the Final [Project Dashboard](link) to visualise the earthquakes from all around the globe :earth_africa: 
+
+
 
 
 

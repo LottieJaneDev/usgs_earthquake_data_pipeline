@@ -18,12 +18,27 @@ def load_data_from_api():
         DataFrame: DataFrame containing earthquake data.
     """
 
+    # DEFAULT BLOCK - USE THIS BLOCK FOR LAST 30 DAYS OF DATA LINK
+
+    # url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.csv"
+    # response = requests.get(url)
+    # return pd.read_csv(io.StringIO(response.text), sep=',')
+
+    #-------------------------------------------------------------------------------
+
+    # ADVANCED OPTION - USE THIS BLOCK TO GATHER DATA FOR YOUR REQUIRED TIME PERIOD
+
     ##### SPECIFY THE TIME PERIOD YOU WANT TO INGEST #####
     ##### LIMITED TO 20,000 ROWS PER CALL BUT NO CALL LIMIT #####
 
-    start_time = "2024-02-15T00:00:00"
-    # end_time = "2024-04-09T00:00:00" # SPECIFIC END TIME 
-    end_time = datetime.now().strftime("%Y-%m-%dT%H:%M:%S") # END TIME = NOW
+    # start_time = "2024-01-01T00:00:00"
+    # end_time = "2024-02-15T00:00:00"
+
+    # start_time = "2024-02-15T00:00:00"
+    # end_time = "2024-04-10T00:00:00"
+
+    # start_time = "2024-04-10T00:00:00"
+    # end_time = datetime.now().strftime("%Y-%m-%dT%H:%M:%S") # END TIME = NOW
     
     url = f"https://earthquake.usgs.gov/fdsnws/event/1/query?format=csv&starttime={start_time}&endtime={end_time}"
 

@@ -4,6 +4,6 @@ base:
   outputs:
 
     dev:
-      type: duckdb
+      type: 
 
-  target: dev
+  target: development

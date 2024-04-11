@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: dim_magnitude_types
+    description: dimensional table containing a list of the references for the magnitude type codes
+
+  - name: fact_usgs_earthquake_data
+    description: final fact table

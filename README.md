@@ -208,61 +208,13 @@ Focusing on enriching the dataset with additional derived columns and establishi
 
 *INSERT THE FINAL SCHEMA HERE*
 
------------------------------
+----------------------------------------------
 
-### Transformations **EDIT THIS SECTION**
-
-List data transformation stages 
-
-discuss duplicates -
-
-The data sometimes has duplicates from the sensor stations in the fact that it is the same event updated at different times, although rare, it's the same earthquake - make PK - time, lat, long, updated. A manual run of the pipeline will create duplicates - need to add a failsafe here. See SQL file for data warehouse queries should they be needed
-
-DBT Transformations - DBT took the raw data from BigQuery native table (`usgs_2024_raw_data`) and performed transformations using [SQL Window Functions](https://www.geeksforgeeks.org/window-functions-in-sql/). The raw table is partitioned by `event_date` and clustered by `INSERT CLUSTER HERE WHEN I FIGURE IT OUT`
-
-** INSERT DBT LINEAGE - HAVE TO ADD IT TO DBT CLOUD TO MAKE IT **
-
------------------------------
-
-### Mage Orchestration **EDIT THIS SECTION** 
-
-![Mage](https://img.shields.io/badge/Mage-8a2be2)
-![Python](https://img.shields.io/badge/Python-3.10_|_3.11-4B8BBE.svg?style=flat&logo=python&logoColor=FFD43B&labelColor=306998)
-![Docker](https://img.shields.io/badge/Docker-329DEE?style=flat&logo=docker&logoColor=white&labelColor=329DEE)
-![BigQuery](https://img.shields.io/badge/BigQuery-3772FF?style=flat&logo=googlebigquery&logoColor=white&labelColor=3772FF)
-![dbt](https://img.shields.io/badge/dbt-1.7-262A38?style=flat&logo=dbt&logoColor=FF6849&labelColor=262A38)
-
-
-There are two pipelines in Mage; `"usgs_ingest_historic"` & `"usgs_30_min_intervals"`
-
-### Pipeline One | "usgs_earthquake_data_ingest_historic"
-
-`"usgs_earthquake_data_ingest_historic"` - is ?????? triggered via the shell script ???????? to ingest the previous 30 days of data to initially populate your dataset. This pipeline will create your BigQuery table, within the BigQuery Dataset you have provisioned through Terraform & save the parquet files to your Google Cloud Storage Bucket. 
-
->Note; For an extra challenge!! Within the first pipeline block for there is the option to adjust the dates & get data as far back as you want to propagate your dataset! (Only as far as 1st January 2024 unless you disable the unit tests within the rest of the pipeline). See if you can use the `start_time` & `end_time` parameters to fill your dataset with data for the complete year! 
-
->Note; _This pipeline can be manually ammended to set a start date & end date of your choosing. You can propagate your dataset as wide as you wish, the only limitations here are 20,000 rows per API Call, but no daily limitation on API calls. Please note; if you run this pipeline irresponsibly you may incur duplicate data. See the SQL file [here](src/bigquery/BiQuery_SQL_Queries.sql) for deduplication query should you accidentally run into this problem._
-
-> Alternatively, I have set my Google Cloud Storage bucket to public [here](https://storage.googleapis.com/my_bucket/data.csv) you can read this into your BigQuery table using a `SQL Query` tab if you wish to.
-
-<img src="images/usgs_ingest_historic_earthquake_data_pipeline.jpg" alt="Seismic Waves" height="400" width="1000">
-
------------------------------
-
-### Pipeline Two | "usgs_earthquake_data_30min_intervals"
-
-`"usgs_earthquake_data_30min_intervals"` - this pipeline is triggered automatically when the above finishes using a 'sensor' block. It runs on a 30 minute trigger that can be changed to more/less frequent if desired via the 'Triggers' section of the Mage UI. It averages around 6 earthquakes every run, which isn't a large amount of data but I wanted the dashboard to be as up-to-date as possible. The difference between the code for both pipelines is minimal but significant. This pipeline will check if a parquet file exists for the current date & appends the rows to it as it has to do this every 30 minutes. This pipeline is also where the DBT integration comes into play, where you'll find the staging, dimensional & fact models alongside the Mage blocks. 
-
-<img src="images/usgs_ingest_30min_intervals_earthquake_data_pipeline.jpg" alt="Seismic Waves" height="400" width="1000">
-
------------------------------
-
-### Terraform (Infrastructure as Code (Iac))
+### _Terraform (Infrastructure as Code (Iac))_
 
 ![Terraform](https://img.shields.io/badge/Terraform-1.7-black?style=flat&logo=terraform&logoColor=white&labelColor=573EDA)
 
 In this project, whilst it is indeed possible to provision a Google Cloud Platform (GCP) virtual machine (VM) using Terraform Infrastructure as Code (IaC), we have opted not to utilise this approach. There are two main reasons for this decision. Firstly, employing Terraform locally would necessitate its installation outside of the virtual environment (locally) we've established using. Secondly, even if Terraform were locally installed, the provisioning process of a virtual machine takes longer in comparrison to manually creating the VM instance following the provided instructions in the GCP Console. However, should you wish to explore Infrastructure as Code (IaC) in the future, here is a [link to the Terraform Registry Templace for a GCP VM](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_instance_template), I have provided a [virtual machine provisioning script](src/terraform/virtual_machine.tf). Embracing IaC and version controlling infrastructure provided multiple benefits such as enhanced consistency, reproducibility, and scalability across dev teams working on a large project. These services are important to maintain cohesion and efficiency across collaborative development projects. 
-
 
 Terraform is a popular Infrastructure as Code (IaC) tool used for automating the deployment and management of cloud infrastructure. In our project, Terraform is utilized to provision resources on Google Cloud Platform (GCP).
 
@@ -276,7 +228,51 @@ Finally, we encapsulate our Terraform commands within a bash script for streamli
 
 -----------------------------
 
-### Partitioning & Clustering **EDIT THIS SECTION**
+### _Mage Orchestration_ **EDIT THIS SECTION** 
+
+![Mage](https://img.shields.io/badge/Mage-8a2be2)
+![Python](https://img.shields.io/badge/Python-3.10_|_3.11-4B8BBE.svg?style=flat&logo=python&logoColor=FFD43B&labelColor=306998)
+![Docker](https://img.shields.io/badge/Docker-329DEE?style=flat&logo=docker&logoColor=white&labelColor=329DEE)
+![BigQuery](https://img.shields.io/badge/BigQuery-3772FF?style=flat&logo=googlebigquery&logoColor=white&labelColor=3772FF)
+![dbt](https://img.shields.io/badge/dbt-1.7-262A38?style=flat&logo=dbt&logoColor=FF6849&labelColor=262A38)
+
+There are two pipelines in Mage; `"usgs_ingest_historic"` & `"usgs_30_min_intervals"`
+
+### Pipeline One | "usgs_earthquake_data_ingest_historic"
+
+`"usgs_earthquake_data_ingest_historic"` - is set to trigger upon starting the project (see note below) to ingest the previous 30 days of data to initially populate your dataset. This pipeline will create your BigQuery table, within the BigQuery Dataset you provisioned earlier through Terraform & save the parquet files to your Google Cloud Storage Bucket. 
+
+>Note; speaking with Mage directly via their Slack channel, an initial 'trigger once' that is set in the past (at the time of me creating this project) will run for you when you start the project as the logic is **_'if now is greater than start date, run'_** & there is a check box for **_'Create initial pipeline run if start date is before current execution period'_**, I have a 'trigger once' saved in code (`triggers.yaml`) & I've been assured that the initial pipeline will run when you start the project. However... should this not happen, you will need to go to the Mage UI at local host 6789, from the left menu, click on 'triggers', click on 'initial_project_trigger' & click 'Run@Once' button.
+
+<details>
+<summary>further details on initial trigger...</summary>
+<br>
+<img src="images/mage-slack-trigger-start-in-past.jpg" alt="mage_trigger_slac" height="100" width="400">
+<br>
+<img src="images/mage-trigger-screenshot.png" alt="mage_trigger_screenshot" height="400" width="1000">
+<br>
+</details>
+<br>
+
+>🌟PIPELINE EXTENSION TASK🌟 | For an extra challenge!! Within the first pipeline block for there is the option to adjust the dates & get data as far back as you want to propagate your dataset! (Only as far as 1st January 2024 unless you disable the unit tests within the rest of the pipeline). See if you can use the `start_time` & `end_time` parameters to fill your dataset with data for the complete year! Don't forget the initial trigger above.. so you may need to to de-deduplicate data if you choose this extra task! 😄
+
+>Note; _This pipeline can be manually ammended to set a start date & end date of your choosing. You can propagate your dataset as wide as you wish, the only limitations here are 20,000 rows per API Call, but no daily limitation on API calls. Please note; if you run this pipeline irresponsibly you may incur duplicate data. See the SQL file [here](src/bigquery/BiQuery_SQL_Queries.sql) for deduplication query should you accidentally run into this problem._
+
+> Alternatively, I have set my Google Cloud Storage bucket to public [here](https://storage.googleapis.com/my_bucket/data.csv) you can read this into your BigQuery table using a `SQL Query` tab if you wish to.
+
+<img src="images/usgs_ingest_historic_earthquake_data_pipeline.jpg" alt="ingest_historic_pipeline" height="400" width="1000">
+
+-----------------------------
+
+### Pipeline Two | "usgs_earthquake_data_30min_intervals"
+
+`"usgs_earthquake_data_30min_intervals"` - this pipeline is triggered automatically when the above finishes using a 'sensor' block. It runs on a 30 minute trigger that can be changed to more/less frequent if desired via the 'Triggers' section of the Mage UI. It averages around 6 earthquakes every run, which isn't a large amount of data but I wanted the dashboard to be as up-to-date as possible. The difference between the code for both pipelines is minimal but significant. This pipeline will check if a parquet file exists for the current date & appends the rows to it as it has to do this every 30 minutes. This pipeline is also where the DBT integration comes into play, where you'll find the staging, dimensional & fact models alongside the Mage blocks. 
+
+<img src="images/usgs_ingest_30min_intervals_earthquake_data_pipeline.jpg" alt="Seismic Waves" height="400" width="1000">
+
+-----------------------------
+
+### _Partitioning & Clustering_ **EDIT THIS SECTION**
 
 ![Mage](https://img.shields.io/badge/Mage-8a2be2)
 ![BigQuery](https://img.shields.io/badge/BigQuery-3772FF?style=flat&logo=googlebigquery&logoColor=white&labelColor=3772FF)
@@ -287,7 +283,21 @@ The data is partitioned & clustered in DBT before CI/CD into the Gold Layer BigQ
 
 ------------------------
 
-### Testing **EDIT THIS SECTION**
+### _Transformations & DBT_  **EDIT THIS SECTION**
+
+List data transformation stages 
+
+discuss duplicates -
+
+The data sometimes has duplicates from the sensor stations in the fact that it is the same event updated at different times, although rare, it's the same earthquake - make PK - time, lat, long, updated. A manual run of the pipeline will create duplicates - need to add a failsafe here. See SQL file for data warehouse queries should they be needed
+
+DBT Transformations - DBT took the raw data from BigQuery native table (`usgs_2024_raw_data`) and performed transformations using [SQL Window Functions](https://www.geeksforgeeks.org/window-functions-in-sql/). The raw table is partitioned by `data_partition` and clustered by `mag_cluster`, `net` & `locationSource`
+
+** INSERT DBT LINEAGE - HAVE TO ADD IT TO DBT CLOUD TO MAKE IT **
+
+-----------------------------
+
+### _Testing_ **EDIT THIS SECTION**
 
 ![Mage](https://img.shields.io/badge/Mage-8a2be2)
 ![dbt](https://img.shields.io/badge/dbt-1.7-262A38?style=flat&logo=dbt&logoColor=FF6849&labelColor=262A38)
@@ -302,7 +312,7 @@ Data validation tests are performed to ensure the quality and correctness of the
 
 -----------------------
 
-### Dashboard &  Visualision 
+### _Dashboard &  Visualision_ 
 
 ![Looker](https://a11ybadges.com/badge?logo=looker) 
 
@@ -319,6 +329,7 @@ You can, of course, use the data to create your own dashboard in your preferred 
 ### _Further Ideas & Next Steps_ 
 
 **EDIT THIS SECTION**
+
 <div align="center">
   <p style="text-align: center; width: 100%;">
 In the next phase of project development, several key ideas have been identified for implementation. These include collecting a comprehensive dataset for the year 2024 with the aim of uploading it to Kaggle for wider utilization by the data science community. Additionally, there is a plan to organize the Terraform Infrastructure as Code (IaC) into distinct environments - Development, Staging, and Production - to enhance deployment efficiency and management, along with deploying the code to Google Cloud Platform as an app using DataProc & Cloud Run. Another important aspect is the implementation of an email alert system to notify relevant stakeholders of significant earthquakes, thereby enhancing the platform's responsiveness to critical events, with the potential investigation to rebuild the project as a streaming pipeline. Utilizing Dataproc to process population data using PySpark and store it simultaneously into both BigQuery and Google Cloud Storage (GCS) buckets is also on the agenda, with the aim of optimizing data processing workflows for scalability and efficiency. Conducting tests using DBT (Data Build Tool) to ensure data quality and integrity throughout the pipeline is essential. Implementation of failsafe mechanisms to prevent data duplication when rerunning historical pipelines needs to be implemented, as well as safeguarding against unintended data loss or corruption. Additionally, integrating the dlt (Data Load Tools) library to enhance data management capabilities, utilizing features such as a paginator to ingest data, the handy inbuilt auto-schema inference, and potentially their serverless DuckDB integration, is a priority. Finally, incorporating a population data layer into the dashboard, using potential data sources such as the World Population Review and datasets available on Kaggle, will be pursued to enrich the platform with valuable insights.

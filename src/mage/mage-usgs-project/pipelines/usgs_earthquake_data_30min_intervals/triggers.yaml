@@ -1,6 +1,6 @@
 triggers:
 - envs: []
-  last_enabled_at: 2024-04-09 19:55:09.877413
+  last_enabled_at: 2024-04-10 09:33:38.366446
   name: 30_minute_data_retrieval_pipeline_trigger
   pipeline_uuid: usgs_earthquake_data_30min_intervals
   schedule_interval: '*/30 * * * *'
@@ -8,5 +8,5 @@ triggers:
   settings: null
   sla: null
   start_time: 2024-04-09 20:00:00
-  status: inactive
+  status: active
   variables: {}

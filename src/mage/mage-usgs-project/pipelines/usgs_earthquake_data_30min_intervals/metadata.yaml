@@ -10,12 +10,12 @@ blocks:
   language: python
   name: load_usgs_earthquake_data
   retry_config: null
-  status: updated
+  status: executed
   timeout: null
   type: data_loader
   upstream_blocks: []
   uuid: load_usgs_earthquake_data
-- all_upstream_blocks_executed: false
+- all_upstream_blocks_executed: true
   color: null
   configuration:
     file_source:
@@ -35,7 +35,7 @@ blocks:
   upstream_blocks:
   - load_usgs_earthquake_data
   uuid: transformations_timestamps_add_partition_cluster_columns
-- all_upstream_blocks_executed: false
+- all_upstream_blocks_executed: true
   color: null
   configuration: {}
   downstream_blocks: []
@@ -51,10 +51,11 @@ blocks:
   upstream_blocks:
   - transformations_timestamps_add_partition_cluster_columns
   uuid: write_to_google_cloud_storage_bucket
-- all_upstream_blocks_executed: false
+- all_upstream_blocks_executed: true
   color: null
   configuration: {}
-  downstream_blocks: []
+  downstream_blocks:
+  - dbt_deps
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -67,6 +68,57 @@ blocks:
   upstream_blocks:
   - transformations_timestamps_add_partition_cluster_columns
   uuid: write_rows_to_bigquery
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    dbt:
+      command: deps
+    dbt_profile_target: ''
+    dbt_project_name: dbt/usgs_earthquake_data
+    disable_query_preprocessing: false
+    export_write_policy: append
+    file_source:
+      path: dbts/dbt_deps.yaml
+    use_raw_sql: false
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: yaml
+  name: dbt_deps
+  retry_config: null
+  status: failed
+  timeout: null
+  type: dbt
+  upstream_blocks:
+  - write_rows_to_bigquery
+  uuid: dbt_deps
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    dbt: {}
+    dbt_profile_target: development
+    dbt_project_name: dbt/usgs_earthquake_data
+    disable_query_preprocessing: false
+    export_write_policy: append
+    file_path: dbt/usgs_earthquake_data/models/staging/staging_usgs_earthquake_data.sql
+    file_source:
+      path: dbt/usgs_earthquake_data/models/staging/staging_usgs_earthquake_data.sql
+      project_path: dbt/usgs_earthquake_data
+    limit: 1000
+    use_raw_sql: false
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/usgs_earthquake_data/models/staging/staging_usgs_earthquake_data
+  retry_config: null
+  status: failed
+  timeout: null
+  type: dbt
+  upstream_blocks: []
+  uuid: dbt/usgs_earthquake_data/models/staging/staging_usgs_earthquake_data
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}

@@ -28,8 +28,21 @@ __init__.py
 /mage_data*
 *.json
 **/__pycache__/
+.DS_Store
+.file_versions
+.gitkeep
+.log
+.logs/
+.mage_temp_profiles
+.preferences.yaml
+.variables/
+__pycache__/
+docker-compose.override.yml
+logs/
 
-# Mage Docker specific files
+mage-ai.db
+mage_data/
+secrets/
 .bash_history
 .jupyter/
 .local/

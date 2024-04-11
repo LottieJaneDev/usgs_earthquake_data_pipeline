@@ -12,12 +12,12 @@ blocks:
   language: python
   name: ingest_historic_earthquake_data
   retry_config: null
-  status: executed
+  status: updated
   timeout: null
   type: data_loader
   upstream_blocks: []
   uuid: ingest_historic_earthquake_data
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration:
     file_source:
@@ -37,7 +37,7 @@ blocks:
   upstream_blocks:
   - ingest_historic_earthquake_data
   uuid: transformations_timestamps_add_partition_cluster_columns
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration: {}
   downstream_blocks: []
@@ -53,7 +53,7 @@ blocks:
   upstream_blocks:
   - transformations_timestamps_add_partition_cluster_columns
   uuid: write_historic_earthquake_data_to_google_cloud_storage
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration: {}
   downstream_blocks:
@@ -64,7 +64,7 @@ blocks:
   language: python
   name: write_historic_earthquake_data_to_BigQuery
   retry_config: null
-  status: updated
+  status: executed
   timeout: null
   type: data_exporter
   upstream_blocks:
@@ -96,7 +96,7 @@ description: Ingests historic data, partitions into snappy parquet files per dat
   over an extended period
 executor_config: {}
 executor_count: 1
-executor_type: null
+executor_type: local_python
 extensions: {}
 name: usgs_earthquake_data_ingest_historic
 notification_config: {}
@@ -104,7 +104,8 @@ remote_variables_dir: null
 retry_config: {}
 run_pipeline_in_one_process: false
 settings:
-  triggers: null
+  triggers:
+    save_in_code_automatically: true
 spark_config: {}
 tags: []
 type: python

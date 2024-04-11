@@ -1,0 +1,47 @@
+usgs_earthquake_data:
+  target: development  # The target environment, such as dev, staging, or prod - used when no other value is explititly given
+  outputs:
+    development:
+      type: bigquery
+      method: service-account  # Use service account for authentication
+      keyfile: /home/src/src/mage/.gcp/mage-service-account.json  # Path to your service account JSON key file
+      project: usgs-earthquake-data # Your GCP project ID
+      dataset: usgs_earthquake_data # The dataset where dbt will create tables
+      # threads: 1  # Number of threads to use when executing dbt commands (optional)
+      # timeout_seconds: 300  # Timeout for individual queries in seconds (optional)
+      # location: US  # The location of your BigQuery dataset (optional)
+      # priority: interactive  # Query priority level (optional, defaults to interactive)
+      # retries: 1  # Number of times to retry a failed job (optional)
+      # keepalives_idle: 30  # Keep-alive idle time in seconds (optional)
+      # keepalives_interval: 5  # Keep-alive interval in seconds (optional)
+      # keepalives_count: 9  # Keep-alive count (optional)
+  
+    # staging:
+    #   type: bigquery
+    #   method: service-account  # Use service account for authentication
+    #   keyfile: "{{ env_var('MAGE_GOOGLE_SERVICE_ACCOUNT') }}"  # Path to your service account JSON key file
+    #   project: "{{ env_var('GCP_PROJECT_NAME') }}"  # Your GCP project ID
+    #   dataset: "{{ env_var('GCP_BIGQUERY_DATASET_NAME') }}"  # The dataset where dbt will create tables
+    #   threads: 1  # Number of threads to use when executing dbt commands (optional)
+    #   timeout_seconds: 300  # Timeout for individual queries in seconds (optional)
+    #   location: "{{ env_var('GCP_LOCATION') }}"  # The location of your BigQuery dataset (optional)
+    #   priority: interactive  # Query priority level (optional, defaults to interactive)
+    #   retries: 1  # Number of times to retry a failed job (optional)
+    #   keepalives_idle: 30  # Keep-alive idle time in seconds (optional)
+    #   keepalives_interval: 5  # Keep-alive interval in seconds (optional)
+    #   keepalives_count: 9  # Keep-alive count (optional)    
+
+    # production:
+    #   type: bigquery
+    #   method: service-account  # Use service account for authentication
+    #   keyfile: "{{ env_var('MAGE_GOOGLE_SERVICE_ACCOUNT') }}"  # Path to your service account JSON key file
+    #   project: "{{ env_var('GCP_PROJECT_NAME') }}"  # Your GCP project ID
+    #   dataset: "{{ env_var('GCP_BIGQUERY_DATASET_NAME') }}"  # The dataset where dbt will create tables
+    #   threads: 1  # Number of threads to use when executing dbt commands (optional)
+    #   timeout_seconds: 300  # Timeout for individual queries in seconds (optional)
+    #   location: "{{ env_var('GCP_LOCATION') }}"  # The location of your BigQuery dataset (optional)
+    #   priority: interactive  # Query priority level (optional, defaults to interactive)
+    #   retries: 1  # Number of times to retry a failed job (optional)
+    #   keepalives_idle: 30  # Keep-alive idle time in seconds (optional)
+    #   keepalives_interval: 5  # Keep-alive interval in seconds (optional)
+    #   keepalives_count: 9  # Keep-alive count (optional)

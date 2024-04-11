@@ -1,0 +1,27 @@
+﻿magType,magnitude_type_method
+Me,Energy
+Mi,Integrated p-wave
+Mwp,Integrated p-wave
+Mw,W-phase
+mw,W-phase
+mww,W-phase
+Mww,W-phase
+Mwc,Centroid
+mwb,Body Wave
+Mwb,Body Wave
+Mwr,Regional
+mwr,Regional
+Ms,Surface Wave
+mb,Short Period Body Wave
+Mfa,Felt Area
+ML,Local
+Ml,Local
+ml,Local
+Md,Duration
+md,Duration
+Mh,Other / Temporary Designation
+Mint,Intensity
+FFM,Finite Fault Modeling
+mb_Lg,Short Period Surface Wave
+mb_lg,Short Period Surface Wave
+Mlg,Short Period Surface Wave
