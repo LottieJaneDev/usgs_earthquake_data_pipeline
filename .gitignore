@@ -17,6 +17,9 @@ ipython_config.py
 
 # Mage files 
 .ssh_tunnel
+mage/mage-usgs-project/dbt/usgs_earthquake_data/target/
+/home/lottie/usgs_earthquake_data_pipeline/mage/mage-usgs-project/dbt/usgs_earthquake_data/target/
+**/target/
 profiles.yml
 package-lock.yml
 .profiles_interpolated_temp_*
@@ -86,3 +89,5 @@ venv.bak/
 # Other 
 TODO.md
 scratchpad.txt
+mage/mage-usgs-project/dbt/usgs_earthquake_data/target/graph.gpickle
+mage/mage-usgs-project/dbt/usgs_earthquake_data/target/partial_parse.msgpack

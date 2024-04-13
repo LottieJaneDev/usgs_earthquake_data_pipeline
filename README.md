@@ -96,6 +96,13 @@ Infrastructure as Code (IaC): [Terraform](https://www.terraform.io/)
 Visualisation: [Looker Studio](https://lookerstudio.google.com/)
 
 
+------------------------
+<div align="center">
+
+### _Architecture Diagram_
+
+<img src="images/usgs_architecture_diagram.png" alt="architecture_diagram" height="300" width="600">
+
 ______________________________________________
 
 <div>
@@ -104,45 +111,42 @@ ______________________________________________
 
 The repository directory structure is as follows:
 
-EXAMPLE
-
 <div align="left">
 
 ```
-├── Dashboards            <- Includes tableau dashboards. 
-|   ├── historical_dashboard.twb      <- historical earthquakes dashboard
-│   │
-│   ├── usgs_dashboard.twb            <- past 7 days earthquakes dashboard
-│
-|
-├── Resources             <- Contains resources for this readme file.
-│
-│  
-├── databricks notebooks             <- Scripts to aggregate and transform data
-|   ├── Configurations           <- configurations used for mounting ADLS and for key vault.
-│   │ 
-│   ├── Transformations          <- transformation notebooks 
-│   
-|         
-├── dataset         <- Includes datasets created in ADF.
-│   
-├── linkedService    <- Includes linkedServices created in ADF.
-│
-├── pipeline    <- Holds pipelines created in ADF.
-│
-├── trigger    <- Holds scheduled trigger(daily) created in ADF
-│
-├── README.md    <-The top-level README for developers using this project
+├── usgs_earthquake_data_pipeline
+│   ├── bigquery/
+│   ├── data/
+│   ├── images/
+│   ├── mage/
+│   │   ├── .gcp/
+│   │   ├── csv/
+│       ├── mage-usgs-project/
+│       │   │   ├── data_exporters/
+│       │   │   ├── data_loaders/
+│       │   │   ├── dbts/
+│       │       ├── pipelines/
+│       │   ├── charts/
+│       │   ├── custom/
+│       │   ├── data_exporters/
+│       │   ├── data_loaders/
+│       │   ├── dbt/
+│       │       ├── usgs_earthquake_data/
+│       │       │   ├── analyses/
+│       │       │   ├── macros/
+│       │       │   ├── models/
+│       │       │   │   ├── core/
+│       │       │       ├── staging/
+│       │       │   ├── seeds/
+│       │       │   ├── snapshots/
+│       │           ├── tests/
+│   ├── project_criteria/
+│   ├── scripts/
+│   ├── setup/
+    ├── terraform/
 ```
 
 <div>
-
-------------------------
-<div align="center">
-
-### _Architecture Diagram_
-
-INSERT DIAGRAM HERE
 
 ------------------------
 
@@ -292,7 +296,7 @@ The data sometimes has duplicates from the sensor stations in the fact that it i
 
 DBT Transformations - DBT took the raw data from BigQuery native table (`usgs_2024_raw_data`) and performed transformations using [SQL Window Functions](https://www.geeksforgeeks.org/window-functions-in-sql/). The raw table is partitioned by `data_partition` and clustered by `mag_cluster`, `net` & `locationSource`
 
-** INSERT DBT LINEAGE - HAVE TO ADD IT TO DBT CLOUD TO MAKE IT **
+<img src="images/dbt_pipeline.jpg" alt="dbt_pipeline" height="300" width="600">
 
 -----------------------------
 
