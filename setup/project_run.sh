@@ -7,11 +7,11 @@ cd
 
 # copy the service account keys into the Mage folder to access inside the container
 source_directory="/home/${USER}/.gcp"
-destination_directory="/home/${USER}/usgs_earthquake_data/src/mage/"
+destination_directory="/home/${USER}/usgs_earthquake_data_pipeline/mage/"
 sudo cp -r "$source_directory" "$destination_directory"
 
 # cd to the project root where the docker-compose.yaml file lives
-cd && cd usgs_earthquake_data/
+cd && cd usgs_earthquake_data_pipeline/
 
 # Start containers using docker-compose up -d in detached mode
 echo "Starting containers..."
@@ -34,7 +34,7 @@ echo "Automatically forwarding port 6789 to access the container locally..."
 sleep 3
 
 # automatic port forwarding to access Docker container locally 
-docker exec -d mage sh -c "code-server --port 6789 --auth none --disable-telemetry &"
+docker exec -d mage sh -c "code-server --port 6789 --auth none &"
 
 # Print the link to localhost port 6789
 echo "Please Access the Mage UI here: http://localhost:6789"

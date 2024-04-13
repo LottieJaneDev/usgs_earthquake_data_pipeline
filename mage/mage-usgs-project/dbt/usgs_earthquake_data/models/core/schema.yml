@@ -1,0 +1,135 @@
+version: 2
+
+sources:
+  - name: core
+    database: usgs-earthquake-data #project
+    schema: usgs_earthquake_data #dataset
+    tables:
+      - name: usgs_earthquake_data_raw_2024
+
+models:
+  - name: fact_usgs_earthquake_data
+    description: final fact table
+    columns:
+      - name: unique_event_id
+        data_type: string
+        description: Unique identifier for each event
+
+      - name: event_id
+        data_type: string
+        description: Identifier for the event
+
+      - name: event_datetime
+        data_type: timestamp
+        description: Date and time of the event
+
+      - name: event_date
+        data_type: date
+        description: Date of the event
+
+      - name: event_time
+        data_type: time
+        description: Time of the event
+
+      - name: descriptive_geographic_region
+        data_type: string
+        description: Descriptive geographic region of the event
+
+      - name: event_type
+        data_type: string
+        description: Type of the event
+
+      - name: event_latitude
+        data_type: float64
+        description: Latitude of the event location
+
+      - name: event_longitude
+        data_type: float64
+        description: Longitude of the event location
+
+      - name: depth_km
+        data_type: numeric
+        description: Depth of the event in kilometers
+
+      - name: last_updated
+        data_type: timestamp
+        description: Timestamp indicating when the data was last updated
+
+      - name: event_review_status
+        data_type: string
+        description: Review status of the event
+
+      - name: event_magnitude
+        data_type: numeric
+        description: Magnitude of the event
+
+      - name: magnitude_alert_level
+        data_type: string
+        description: Magnitude alert level
+
+      - name: magnitude_conversion_type
+        data_type: string
+        description: Type of magnitude conversion
+
+      - name: magnitude_type_method
+        data_type: string
+        description: Method of magnitude type
+
+      - name: no_stations_to_calculate_location
+        data_type: numeric
+        description: Number of stations used to calculate the event location
+
+      - name: largest_gap_between_stations
+        data_type: numeric
+        description: Largest gap between stations
+
+      - name: dist_epicenter_to_station_degrees
+        data_type: numeric
+        description: Distance from the epicenter to the station in degrees
+
+      - name: root_mean_square_residual_seconds
+        data_type: numeric
+        description: Root mean square residual in seconds
+
+      - name: horizontal_location_error_km
+        data_type: numeric
+        description: Horizontal location error in kilometers
+
+      - name: depth_uncertainty_km
+        data_type: numeric
+        description: Depth uncertainty in kilometers
+
+      - name: magnitude_uncertainty
+        data_type: numeric
+        description: Magnitude uncertainty
+
+      - name: no_stations_to_calculate_magnitude
+        data_type: numeric
+        description: Number of stations used to calculate the magnitude
+
+      - name: data_contributor_network_id
+        data_type: string
+        description: Identifier of the data contributor network
+
+      - name: data_contributor_network_name
+        data_type: string
+        description: Name of the data contributor network
+
+      - name: network_reported_by_id
+        data_type: string
+        description: Identifier of the network reported by
+
+      - name: network_reported_by_name
+        data_type: string
+        description: Name of the network reported by
+
+      - name: network_magnitude_author_id
+        data_type: string
+        description: Identifier of the network magnitude author
+
+      - name: network_magnitude_author_name
+        data_type: string
+        description: Name of the network magnitude author
+
+    # - name: core_schema_codegen
+    #   description: generates the schema for the core models

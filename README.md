@@ -25,7 +25,6 @@ _Author | Lottie Jane Pollard_
 ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
 ![Shell Script](https://img.shields.io/badge/shell_script-%23121011.svg?style=for-the-badge&logo=gnu-bash&logoColor=white)
 ![YAML](https://img.shields.io/badge/yaml-%23ffffff.svg?style=for-the-badge&logo=yaml&logoColor=151515)
-<!-- ![Jinja](https://img.shields.io/badge/jinja-white.svg?style=for-the-badge&logo=jinja&logoColor=black) -->
 ![Google Cloud](https://img.shields.io/badge/GoogleCloud-%234285F4.svg?style=for-the-badge&logo=google-cloud&logoColor=white)
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 ![Looker](https://a11ybadges.com/badge?logo=looker)
@@ -37,7 +36,7 @@ _Author | Lottie Jane Pollard_
 
 ------------
 
-**IMPORTANT;** _to skip the project overview & head staight to set up, click [here.](/home/lottie/usgs_earthquake_data/setup.md) Do not clone the repository locally, the setup will guide you & clone the repository automatically._
+**IMPORTANT;** _to skip the project overview & head staight to set up, click [here.](setup.md) Do not clone the repository locally, the setup will guide you & clone the repository automatically._
 
 
 
@@ -214,7 +213,7 @@ Focusing on enriching the dataset with additional derived columns and establishi
 
 ![Terraform](https://img.shields.io/badge/Terraform-1.7-black?style=flat&logo=terraform&logoColor=white&labelColor=573EDA)
 
-In this project, whilst it is indeed possible to provision a Google Cloud Platform (GCP) virtual machine (VM) using Terraform Infrastructure as Code (IaC), we have opted not to utilise this approach. There are two main reasons for this decision. Firstly, employing Terraform locally would necessitate its installation outside of the virtual environment (locally) we've established using. Secondly, even if Terraform were locally installed, the provisioning process of a virtual machine takes longer in comparrison to manually creating the VM instance following the provided instructions in the GCP Console. However, should you wish to explore Infrastructure as Code (IaC) in the future, here is a [link to the Terraform Registry Templace for a GCP VM](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_instance_template), I have provided a [virtual machine provisioning script](src/terraform/virtual_machine.tf). Embracing IaC and version controlling infrastructure provided multiple benefits such as enhanced consistency, reproducibility, and scalability across dev teams working on a large project. These services are important to maintain cohesion and efficiency across collaborative development projects. 
+In this project, whilst it is indeed possible to provision a Google Cloud Platform (GCP) virtual machine (VM) using Terraform Infrastructure as Code (IaC), we have opted not to utilise this approach. There are two main reasons for this decision. Firstly, employing Terraform locally would necessitate its installation outside of the virtual environment (locally) we've established using. Secondly, even if Terraform were locally installed, the provisioning process of a virtual machine takes longer in comparrison to manually creating the VM instance following the provided instructions in the GCP Console. However, should you wish to explore Infrastructure as Code (IaC) in the future, here is a [link to the Terraform Registry Templace for a GCP VM](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_instance_template), I have provided a [virtual machine provisioning script](scripts/virtual_machine.tf). Embracing IaC and version controlling infrastructure provided multiple benefits such as enhanced consistency, reproducibility, and scalability across dev teams working on a large project. These services are important to maintain cohesion and efficiency across collaborative development projects. 
 
 Terraform is a popular Infrastructure as Code (IaC) tool used for automating the deployment and management of cloud infrastructure. In our project, Terraform is utilized to provision resources on Google Cloud Platform (GCP).
 
@@ -256,7 +255,7 @@ There are two pipelines in Mage; `"usgs_ingest_historic"` & `"usgs_30_min_interv
 
 >🌟PIPELINE EXTENSION TASK🌟 | For an extra challenge!! Within the first pipeline block for there is the option to adjust the dates & get data as far back as you want to propagate your dataset! (Only as far as 1st January 2024 unless you disable the unit tests within the rest of the pipeline). See if you can use the `start_time` & `end_time` parameters to fill your dataset with data for the complete year! Don't forget the initial trigger above.. so you may need to to de-deduplicate data if you choose this extra task! 😄
 
->Note; _This pipeline can be manually ammended to set a start date & end date of your choosing. You can propagate your dataset as wide as you wish, the only limitations here are 20,000 rows per API Call, but no daily limitation on API calls. Please note; if you run this pipeline irresponsibly you may incur duplicate data. See the SQL file [here](src/bigquery/BiQuery_SQL_Queries.sql) for deduplication query should you accidentally run into this problem._
+>Note; _This pipeline can be manually ammended to set a start date & end date of your choosing. You can propagate your dataset as wide as you wish, the only limitations here are 20,000 rows per API Call, but no daily limitation on API calls. Please note; if you run this pipeline irresponsibly you may incur duplicate data. See the SQL file [here](bigquery/BiQuery_SQL_Queries.sql) for deduplication query should you accidentally run into this problem._
 
 > Alternatively, I have set my Google Cloud Storage bucket to public [here](https://storage.googleapis.com/my_bucket/data.csv) you can read this into your BigQuery table using a `SQL Query` tab if you wish to.
 
@@ -268,7 +267,7 @@ There are two pipelines in Mage; `"usgs_ingest_historic"` & `"usgs_30_min_interv
 
 `"usgs_earthquake_data_30min_intervals"` - this pipeline is triggered automatically when the above finishes using a 'sensor' block. It runs on a 30 minute trigger that can be changed to more/less frequent if desired via the 'Triggers' section of the Mage UI. It averages around 6 earthquakes every run, which isn't a large amount of data but I wanted the dashboard to be as up-to-date as possible. The difference between the code for both pipelines is minimal but significant. This pipeline will check if a parquet file exists for the current date & appends the rows to it as it has to do this every 30 minutes. This pipeline is also where the DBT integration comes into play, where you'll find the staging, dimensional & fact models alongside the Mage blocks. 
 
-<img src="images/usgs_ingest_30min_intervals_earthquake_data_pipeline.jpg" alt="Seismic Waves" height="400" width="1000">
+<img src="images/usgs_ingest_30min_intervals_earthquake_data_pipeline.jpg" alt="ingest_30min_pipeline" height="400" width="1000">
 
 -----------------------------
 
@@ -318,11 +317,13 @@ Data validation tests are performed to ensure the quality and correctness of the
 
 A dashboard has been developed using Google Looker Studio to visualise earthquake events. Utilising Google's native visualisation tool from within BigQuery, the dashboard benefits from enhanced speed and reduced latency. This synergy between Looker and BigQuery allows for efficient data retrieval and processing, leading to faster insights and smoother user experiences.
 
-Dashboard Link: * LINK TO DASHBOARD HERE * 
+[Check out the interactive Dashboard here!!!](https://lookerstudio.google.com/reporting/b0be0518-3803-4301-9829-0125d48be9df)
+
+<img src="images/dashboard_image.jpg" alt="dashboard" height="400" width="1000">
 
 VIDEO OF THE DASHBOARD IN ACTION HERE 
 
-You can, of course, use the data to create your own dashboard in your preferred visualisation tool if you wish.  
+You can, of course, use the data to create your own dashboard in your preferred visualisation tool if you wish. 
 
 -----------------------------
 
@@ -332,7 +333,11 @@ You can, of course, use the data to create your own dashboard in your preferred 
 
 <div align="center">
   <p style="text-align: center; width: 100%;">
-In the next phase of project development, several key ideas have been identified for implementation. These include collecting a comprehensive dataset for the year 2024 with the aim of uploading it to Kaggle for wider utilization by the data science community. Additionally, there is a plan to organize the Terraform Infrastructure as Code (IaC) into distinct environments - Development, Staging, and Production - to enhance deployment efficiency and management, along with deploying the code to Google Cloud Platform as an app using DataProc & Cloud Run. Another important aspect is the implementation of an email alert system to notify relevant stakeholders of significant earthquakes, thereby enhancing the platform's responsiveness to critical events, with the potential investigation to rebuild the project as a streaming pipeline. Utilizing Dataproc to process population data using PySpark and store it simultaneously into both BigQuery and Google Cloud Storage (GCS) buckets is also on the agenda, with the aim of optimizing data processing workflows for scalability and efficiency. Conducting tests using DBT (Data Build Tool) to ensure data quality and integrity throughout the pipeline is essential. Implementation of failsafe mechanisms to prevent data duplication when rerunning historical pipelines needs to be implemented, as well as safeguarding against unintended data loss or corruption. Additionally, integrating the dlt (Data Load Tools) library to enhance data management capabilities, utilizing features such as a paginator to ingest data, the handy inbuilt auto-schema inference, and potentially their serverless DuckDB integration, is a priority. Finally, incorporating a population data layer into the dashboard, using potential data sources such as the World Population Review and datasets available on Kaggle, will be pursued to enrich the platform with valuable insights.
+In the next phase of project development, several key ideas have been identified for implementation. These include collecting a comprehensive dataset for the year 2024 with the aim of uploading it to Kaggle for wider utilization by the data science community. Additionally, there is a plan to organize the Terraform Infrastructure as Code (IaC) into distinct environments - Development, Staging, and Production - to enhance deployment efficiency and management, along with deploying the code to Google Cloud Platform as an app using DataProc & Cloud Run. Another important aspect is the implementation of an email alert system to notify relevant stakeholders of significant earthquakes, thereby enhancing the platform's responsiveness to critical events, with the potential investigation to rebuild the project as a streaming pipeline. Utilizing Dataproc to process population data using PySpark and store it simultaneously into both BigQuery and Google Cloud Storage (GCS) buckets is also on the agenda, with the aim of optimizing data processing workflows for scalability and efficiency. Conducting tests using DBT (Data Build Tool) to ensure data quality and integrity throughout the pipeline is essential. Implementation of failsafe mechanisms to prevent data duplication when rerunning historical pipelines needs to be implemented, as well as safeguarding against unintended data loss or corruption. Additionally, integrating the dlt (Data Load Tools) library to enhance data management capabilities, utilizing features such as a paginator to ingest data, the handy inbuilt auto-schema inference, and potentially their serverless DuckDB integration, is a priority. Finally, incorporating a population data layer into the dashboard, using potential data sources such as the World Population Review and datasets available on Kaggle, will be pursued to enrich the platform with valuable insights. 
+
+Adding the VM script to terraform
+
+Change DBT code to work in this way - Incremental - Materialised as a table within the physical storage, but every time we DBT run there are TWO WAYS of running it 1. Drop & Create with the SELECT statement 2. or we can INSERT only new data into the table. Incremental materialisations are a powerful feature of dbt that allow for efficient updates to existing tables, reducing the need for full data refreshes 
   </p>
 </div>
 

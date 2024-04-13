@@ -1,0 +1,10 @@
+﻿min_mag,max_mag,mag_alert
+0,1.9,Micro
+2,2.9,Minor
+3,3.9,Slight
+4,4.9,Light
+5,5.9,Moderate
+6,6.9,Strong
+7,7.9,Major
+8,8.9,Great
+9,10,Extreme

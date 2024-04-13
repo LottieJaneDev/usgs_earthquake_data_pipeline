@@ -1,6 +1,7 @@
 # Google Cloud Platform | Virtual Machine Set Up
 
 > !Note: _Commands are displayed as `bash` by default, you may need to adjust them to your local shell if you are working outside of the Virtual Machine._
+
 > !Note: It is possible to set up your virtual machine using Terraform if you have it installed locally already. See Terraform directory [here](src\terraform). You can then skip to "_Connecting to the Virtual Machine from your Local Machine_" below.
 
 ## Account & Project
@@ -15,7 +16,7 @@ If you are unfamiliar with this way of working, I highly recommend following thi
 
 2. Create a new project named `'usgs-data'`
 
-3. Enable the `Service Usage API` manually to allow for smooth interaction between Terraform & GCP during resource provisioning later on. Click here to enable the API for your project => ['ENABLE SERVICE USAGE API'](https://console.cloud.google.com/apis/library/serviceusage.googleapis.com/)
+3. Enable the `Service Usage API` to allow for smooth interaction between Terraform & GCP during resource provisioning later on. Click here to manually enable the API for your project - [ENABLE SERVICE USAGE API](https://console.cloud.google.com/apis/library/serviceusage.googleapis.com/)
 
 4. Create a GCP Virtual Machine to leverage external cloud computing power & better compatability, reducing local hardward/software restrictions
 
@@ -80,7 +81,7 @@ Now go back to your Git Bash terminal & run:
 ssh -i ~/.ssh/KEY_FILENAME USERNAME@EXTERNAL_IP
 ```
 
-Confirm with a `yes` | Note; if you put a password in here, then you'll have to do this every time you log in so unless you require one for security, you can leave it blank by pressing `enter`
+Confirm with a `yes` - note; if you put a password in here, then you'll have to do this every time you log in so unless you require one for security, you can leave it blank by pressing `enter`
 
 You should now see the homescreen of your Virtual Machine 
 
@@ -147,21 +148,6 @@ We will create the individual services accounts for each tool used in this proje
   * __Terraform__ | _Storage Admin, Storage Object Admin, BigQuery Admin_ 
   #maybe service account token creator, maybe editor, service usage admin, Owner
 
-#############################################
-
-If I use MAGE with Cloud Run = 
-- Artifact Registry Read (mage)
-- Artifact Registry Writer (mage)
-- Cloud Run Developer (mage in the cloud) (try Cloud Run Admin instead) 
-- Cloud SQL Admin (mage in the cloud)
-- Service Account Token Creator (mage in the cloud)
-- BigQuery Admin (BigQuery) # if needed 
-- Cloud Vision AI Service Agent (Vision) # if needed
-- Service Usage Admin () # if needed
-- Service Object Viewer () # if needed
-NB - if i do use this path then add into the further ideas - using GCP bigquery secrects manager
-
-#####################################################
   
 >Note; for this project we will use the [DataBuildTools (DBT)] integration that is conveniently built into Mage so we won't need a separate service account for DBT.
 
@@ -182,7 +168,7 @@ NB - if i do use this path then add into the further ideas - using GCP bigquery 
   * `mage-service-account.json`
   * `terraform-service-account.json`
 
-> ! Rename them as one at a time after download as you will get confused which is which. I recommend simply adding "mage" or "terraform" as a prefix for example; `"terraform-usgs-earthquake-data-18ebd2b625cf.json"` & `"mage-usgs-earthquake-data-26edd8b928cl.json"`
+> ! Rename them as one at a time after download as you will get confused which is which.
 
 * We will use these keys once we are working inside our virtual machine
 

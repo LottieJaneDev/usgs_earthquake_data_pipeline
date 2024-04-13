@@ -1,6 +1,6 @@
 # Project Set Up
 
->NOTE; Do not clone this repository until you are in the home folder of your Virtual Machine, the [installation script](C:\Users\l.pollard\usgs_earthquake_data\setup\installation.sh) will do that for your! 😄
+>NOTE; Do not clone this repository until you are in the home folder of your Virtual Machine, the [installation script](setup/installation.sh) will do that for your! 😄
 
 >NOTE; the project instructions for reproducability are based on working within a Google Cloud Platform Virtual Machine environment on an [Unbuntu](https://ubuntu.com/desktop) machine. In my opinion, interacting with the GCP VM works best when using an IDE such as VS Code, where you have instant access to your files, the terminal & port forwarding, although you can use a standard terminal that allows SSH connection. If you are using anything other than the aforementioned, you may have to alter the instructions to suit your set up.  
 
@@ -25,7 +25,7 @@ To run this project locally, you will need to adjust the set up instructions and
 ## Cloud Set Up
 
 
-1. Follow [these instructions](/home/lottie/usgs_earthquake_data/setup/virtual_machine_setup.md) to create your:
+1. Follow [these instructions](setup/virtual_machine_setup.md) to create your:
 
     * *Google Cloud Platform Account*
     * *Google Cloud Platform Virtul Machine*
@@ -38,12 +38,12 @@ To run this project locally, you will need to adjust the set up instructions and
 4. Open the terminal in VS Code `(CTRL+')` and run:
 
     ```bash
-    git clone www.REPOSITORY NAME WHEN IT'S CREATED
+    git clone https://github.com/LottieJaneDev/usgs_earthquake_data_pipeline.git
     ```
     Change directory into the cloned repository: 
 
     ```bash
-    cd usgs_earthquake_data/
+    cd usgs_earthquake_data_pipeline/
     ```
 
 5. Ensure all .sh (Shell) files in the directory executable by running: 
@@ -52,7 +52,7 @@ To run this project locally, you will need to adjust the set up instructions and
     find . -type f -name "*.sh" -exec chmod +x {} \;
     ```
 
-6. Navigate to the [install.sh](setup\install.sh) & run it to install the following software onto your virtual machine: 
+6. Navigate to the [install.sh](setup/install.sh) & run it to install the following software onto your virtual machine: 
 
     ```bash
     cd setup/ && ./install.sh
@@ -69,11 +69,13 @@ To run this project locally, you will need to adjust the set up instructions and
 
 7. Don't forget to check docker has completed installation after the install script by closing the remote connection completely & starting it back up again. This is to refresh the User Group Policies and enforce the new policy where you are an authorised user. 
 
+> NOTE: I had to stop the virtual machine completely via the GCP UI, restart it & then recconect via VS Code through remote SSH connection. If logging out of SSH and back in doesn't work, you may need to do this before running the below again:  
+
     ```bash
     docker run hello-world
     ```
 
-    <details>
+<details>
     <summary>example screenshot</summary>
     <br>
     <img src="images/docker-hello-world.jpg" alt="docker-hello-world" height="300" width="300">
@@ -82,9 +84,9 @@ To run this project locally, you will need to adjust the set up instructions and
 
 ## Project Start 
 
-1. Spin up the project resources using Terraform (Infrastructure as Code) (Iac) follow the [Terraform start guide here](src/terraform/README.md)
+1. Spin up the project resources using Terraform (Infrastructure as Code) (Iac) follow the [Terraform start guide here](terraform/README.md)
 
-2. Spin up the Docker Container for Mage, follow the [Mage Project Start guide here](src/mage/README.md) this includes the DBT analytics engineering layer. 
+2. Spin up the Docker Container for Mage, follow the [Mage Project Start guide here](mage/README.md) this includes the DBT analytics engineering layer. 
 
 3. Visit the Final [Project Dashboard](link) to visualise the earthquakes from all around the globe :earth_africa: 
 

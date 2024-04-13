@@ -1,0 +1,5 @@
+version: 0.1.1
+default:
+
+  GOOGLE_SERVICE_ACC_KEY_FILEPATH: "{{ env_var('MAGE_GOOGLE_SERVICE_ACCOUNT') }}"
+  GOOGLE_LOCATION: "{{ env_var('GCP_LOCATION') }}"

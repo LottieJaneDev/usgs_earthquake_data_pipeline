@@ -40,18 +40,48 @@ fi
 
 
 # sleep to read the above 
-sleep 8
+sleep 4
 
 # Create a .env file at the repository root 
-cd usgs_earthquake_data/
+cd && cd usgs_earthquake_data_pipeline/
 touch .env
 rm example.env
 
-###### NEED TO LIST ALL FINAL ENV. VARIABLES HERE AND ASK CHAT-GPT TO WRITE THIS AGAIN 
-
 # Function to prompt user for input and update .env file
 update_env() {
-    echo "Enter value for $1:"
+    echo "Please enter the $1:"
+    case $1 in
+        "VM_NAME")
+            echo "This is the name of the virtual machine you just created"
+            ;;
+        "LOCAL_TERRAFORM_SERVICE_ACCOUNT_FILE_PATH")
+            echo "This is the local file path to the Terraform service account JSON file on your personal computer"
+            ;;
+        "LOCAL_MAGE_SERVICE_ACCOUNT_FILE_PATH")
+            echo "This is the local file path to the Mage service account JSON file on your personal computer"
+            ;;
+        "GCP_PROJECT_NAME")
+            echo "This is the name of the Google Cloud Platform (GCP) project you just created e.g. usgs-data"
+            ;;
+        "GCP_LOCATION")
+            echo "This is the geographical location of the GCP resource e.g. US"
+            ;;
+        "GCP_REGION")
+            echo "This is the GCP region where the resources will be deployed e.g. us-central1-c"
+            ;;
+        "GCP_ZONE")
+            echo "This is the GCP zone where the resources will be deployed e.g. us-central1"
+            ;;
+        "GCP_GC_STORAGE_BUCKET_NAME")
+            echo "This is the name of the Google Cloud Storage bucket e.g. usgs-raw-data"
+            ;;
+        "GCP_BIGQUERY_DATASET_NAME")
+            echo "This is the name of the BigQuery dataset e.g. usgs_earthquake_data"
+            ;;
+        *)
+            echo "Please provide a description for $1."
+            ;;
+    esac
     read -r value
     echo "$1=$value" >> .env
 }
@@ -61,20 +91,19 @@ append_custom_lines() {
     echo "Appending custom lines to .env file..."
     cat <<EOF >> .env
 # Custom lines added by script
-ENV_FILE="/home/${USER}/usgs_earthquake_data/.env"
+ENV_FILE="/home/${USER}/usgs_earthquake_data_pipeline/.env"
 VM_SERVICE_ACCOUNT_KEYS_FILE_PATH="/home/${USER}/.gcp/"
 VM_TERRAFORM_SERVICE_ACCOUNT_FILE_PATH="/home/$USER/.gcp/terraform-service-account.json" 
 VM_MAGE_SERVICE_ACCOUNT_FILE_PATH="/home/${USER}/.gcp/mage-service-account.json"
-MAGE_GOOGLE_SERVICE_ACCOUNT="~/mage/.gcp/mage-service-account.json"
+MAGE_GOOGLE_SERVICE_ACCOUNT="/home/src/mage/.gcp/mage-service-account.json"
+MAGE_PROJECT_NAME=mage-usgs-project
 EOF
 }
 
-# ADD IN A DESCRIPTION PRINT STATEMENT BEFORE EACH ONE SO THEY KNOW WHAT TO TYPE/PASTE
 # Prompt user for each variable
 update_env "VM_NAME"
 update_env "LOCAL_TERRAFORM_SERVICE_ACCOUNT_FILE_PATH"
 update_env "LOCAL_MAGE_SERVICE_ACCOUNT_FILE_PATH"
-update_env "MAGE_PROJECT_NAME"
 update_env "GCP_PROJECT_NAME"
 update_env "GCP_LOCATION"
 update_env "GCP_REGION"
@@ -87,6 +116,7 @@ append_custom_lines
 
 # Print all variables updated
 echo "Variables updated in .env file."
+
 
 #########################################################################
 ####### CAN'T GET THESE OPTIONS TO WORK SO MANUAL OPTION ABOVE ##########
@@ -106,9 +136,12 @@ echo "Variables updated in .env file."
 # gcloud compute scp ${LOCAL_MAGE_SERVICE_ACCOUNT_FILE_PATH} ${USER}@${VM_NAME}:${VM_SERVICE_ACCOUNT_KEYS_FILE_PATH} --zone ${GCP_REGION}
 # gcloud compute scp ${LOCAL_TERRAFORM_SERVICE_ACCOUNT_FILE_PATH} ${USER}@${VM_NAME}:${VM_SERVICE_ACCOUNT_KEYS_FILE_PATH} --zone ${GCP_REGION}
 
-
-
 ##########################################################################
+
+cd 
+
+export VM_TERRAFORM_SERVICE_ACCOUNT_FILE_PATH="/home/lottie/.gcp/terraform-service-account.json"
+export VM_MAGE_SERVICE_ACCOUNT_FILE_PATH="/home/lottie/.gcp/mage-service-account.json"
 
 # Authorise the GCP Service Accounts we created earlier 
 echo "Authorising Google Cloud Platform Service Accounts for Terraform & Mage.."
@@ -122,6 +155,20 @@ sudo apt-get update
 wget https://repo.anaconda.com/archive/Anaconda3-2024.02-1-Linux-x86_64.sh
 bash Anaconda3-2024.02-1-Linux-x86_64.sh -b -p $HOME/anaconda3
 rm Anaconda3-2024.02-1-Linux-x86_64.sh
+
+# Add Anaconda to PATH
+echo 'export PATH="$HOME/anaconda3/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+
+# Initialize conda
+conda init bash
+source ~/.bashrc
+
+# Verify conda is installed correctly
+conda --version
+
+# Create a new environment (optional)
+conda create --name myenv python=3.9
 
 echo "=============================================================================="
 echo "---------------------- ANACONDA3 INSTALLED! ----------------------"
@@ -175,5 +222,5 @@ echo "!IMPORTANT - Log out of your Virtual Machine and log back in (Remote SSH C
 echo "You can then run `docker run hello-world` to confirm installation & configuration is complete"
 sleep 5
 echo "Remember to install your IDE alternative for Terraform & Docker formatting if required (not compulsory)."
-echo "Head back to usgs_earthquake_data/setup.md for the next steps!"
+echo "Head back to setup.md for the next steps!"
 source ~/.bashrc

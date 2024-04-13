@@ -1,0 +1,111 @@
+blocks:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - transformations_timestamps_add_partition_cluster_columns
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: load_usgs_earthquake_data
+  retry_config: null
+  status: updated
+  timeout: null
+  type: data_loader
+  upstream_blocks: []
+  uuid: load_usgs_earthquake_data
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    file_source:
+      path: transformers/transformations_timestamps_add_partition_cluster_columns.py
+  downstream_blocks:
+  - write_to_google_cloud_storage_bucket
+  - write_rows_to_bigquery
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: transformations_timestamps_add_partition_cluster_columns
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - load_usgs_earthquake_data
+  uuid: transformations_timestamps_add_partition_cluster_columns
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: write_to_google_cloud_storage_bucket
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - transformations_timestamps_add_partition_cluster_columns
+  uuid: write_to_google_cloud_storage_bucket
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - trigger_dbt
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: write_rows_to_BigQuery
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - transformations_timestamps_add_partition_cluster_columns
+  uuid: write_rows_to_bigquery
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: trigger_dbt
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - write_rows_to_bigquery
+  uuid: trigger_dbt
+cache_block_output_in_memory: false
+callbacks: []
+concurrency_config: {}
+conditionals: []
+created_at: '2024-04-08 17:57:51.569680+00:00'
+data_integration: null
+description: Retrieves global earthquakes for the previous 30 minutes
+executor_config: {}
+executor_count: 1
+executor_type: local_python
+extensions: {}
+name: usgs_earthquake_data_30min_intervals
+notification_config: {}
+remote_variables_dir: null
+retry_config: {}
+run_pipeline_in_one_process: false
+settings:
+  triggers:
+    save_in_code_automatically: true
+spark_config: {}
+tags: []
+type: python
+uuid: usgs_earthquake_data_30min_intervals
+variables_dir: /home/src/mage_data/mage-usgs-project
+widgets: []
