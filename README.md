@@ -530,12 +530,11 @@ The dashboard collates the data gathered into a visual representation that has b
 
 _**Dashboard Video**_
 
-<video width="900" height="400" controls>
-  <source src="images/dashboard_video.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-
 <br>
+<img src="images/dashboard_video.gif" alt="dashboard" height="400" width="800">
+<br>
+
+
 You can, of course, use the data to create your own dashboard in your preferred visualisation tool if you wish. 
 
 ---------------------------

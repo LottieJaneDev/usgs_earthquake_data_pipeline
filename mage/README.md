@@ -66,14 +66,13 @@ There are three pipelines in Mage; `"usgs_ingest_historic"`, `"usgs_30_min_inter
 
 >**Note;** speaking with Mage directly via their Slack channel, an initial 'trigger once' that is set in the past (at the time of me creating this project) will run for you when you start the project as the logic is **_'if now is greater than start date, run'_** & there is a check box for **_'Create initial pipeline run if start date is before current execution period'_**, I have a 'trigger once' saved in code (`triggers.yaml`) & I've been assured that the initial pipeline will run when you start the project. However... should this not happen, you will need to go to the Mage UI at local host 6789, from the left menu, click on 'triggers', click on 'initial_project_trigger' & click 'Run@Once' button.
 
-
-<img src="../images/mage-trigger-screenshot.png" alt="mage_trigger_screenshot" height="400" width="900">
-
+<br>
+<img src="../images/mage-trigger-screenshot.png" alt="mage_trigger_screenshot" height="400" width="700">
 <br>
 
 >🌟**PIPELINE EXTENSION TASK**🌟 | For an extra challenge!! Within the first pipeline block (historic_pipeline) there is the option to adjust the dates & get data as far back as you want to propagate your dataset! (Only as far as 1st January 2024 unless you disable the unit tests within the rest of the pipeline). See if you can use the `start_time` & `end_time` parameters to fill your dataset with data for the complete year! Don't forget the initial trigger above.. you may need to to de-deduplicate data if you choose this extra task! Good luck! 😄
 
->Note; _This pipeline can be manually amended to set a start date & end date of your choosing. You can propagate your dataset as wide as you wish, the only limitations here are 20,000 rows per API Call, but no daily limitation on API calls. Please note; if you run this pipeline irresponsibly you may incur duplicate data. See the SQL file [here](bigquery/BiQuery_SQL_Queries.sql) for deduplication query should you accidentally run into this problem._
+>Note; _This pipeline can be manually amended to set a start date & end date of your choosing. You can propagate your dataset as wide as you wish, the only limitations here are 20,000 rows per API Call, but no daily limitation on API calls. Please note; if you run this pipeline irresponsibly you may incur duplicate data. See the SQL file [here](bigquery/BigQuery_SQL_Queries.sql) for deduplication query should you accidentally run into this problem._
 
 > Alternatively, I have set my Google Cloud Storage bucket to public [here](https://console.cloud.google.com/storage/browser/usgs-raw-data/) you can read this into your BigQuery table using a `SQL Query` tab if you wish to.
 
@@ -97,7 +96,7 @@ This pipeline is triggered by Pipeline Two. It acts as the Analytics Transformat
 
 <div align="center">
 
-<img src="../images/dbt_pipeline.jpg" alt="dbt_pipeline" height="550" width="500">
+<img src="../images/dbt_pipeline.jpg" alt="dbt_pipeline" height="550" width="600">
 
 -----------------------------
 

@@ -86,17 +86,17 @@ docker run hello-world
 
 ## Project Start 
 
-1. Spin up the project resources using Terraform (Infrastructure as Code) (Iac) follow the [Terraform start guide here](../terraform/README.md)
+1. Spin up the project resources using Terraform (Infrastructure as Code) (Iac) follow the [Terraform start guide here](terraform/README.md)
 
-2. Spin up the Docker Container for Mage, follow the [Mage Project Start guide here](../mage/README.md) this includes the DBT analytics engineering layer. 
+2. Spin up the Docker Container for Mage, follow the [Mage Project Start guide here](mage/README.md) this includes the DBT analytics engineering layer. 
 
 3. Visit the Final [Project Dashboard](https://lookerstudio.google.com/reporting/b0be0518-3803-4301-9829-0125d48be9df) to visualise the earthquakes from all around the globe :earth_africa: 
 
 ## Project End 
 
-1. Run the shutdown script [here](../shutdown.sh) ⚠️ IMPORTANT ⚠️ Make sure that your Terraform resources (BigQuery Datasets & Tables & Google Cloud Storage Buckets) have been destroyed by manually checking as well, just to be sure the destruction completed & to 100% avoid being charged for any provisioned resources. 
+1. Run the shutdown script [here](setup/shutdown.sh) ⚠️ IMPORTANT ⚠️ Make sure that your Terraform resources (BigQuery Datasets & Tables & Google Cloud Storage Buckets) have been destroyed by manually checking as well, just to be sure the destruction completed & to 100% avoid being charged for any provisioned resources. 
 
-2. ⚠️ IMPORTANT ⚠️ Ensure that you turn off your billing & remove any cards you may have connected as well as deleting your virtual machine & resources mentioned above before the end of your free trial, unless you know what you are doing & have an understanding of the potential cost implications of running this or any other project in a Cloud environment. 
+2. ⚠️ IMPORTANT ⚠️ Ensure that you turn off your billing & remove any cards you may have connected as well as deleting your virtual machine & resources mentioned above before the end of your free trial, unless you know what you are doing & have an understanding of the potential cost implications of running this or any other project in a Cloud environment for prolonged periods. 
 
 
 
