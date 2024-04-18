@@ -1,15 +1,8 @@
 
-  
-    
 
-    create or replace table `usgs-earthquake-data`.`usgs_earthquake_data`.`staging_usgs_earthquake_data`
-      
-    
-    
-
-    OPTIONS()
-    as (
-      
+  create or replace view `usgs-earthquake-data`.`usgs_earthquake_data`.`staging_usgs_earthquake_data`
+  OPTIONS()
+  as 
 
 with
     source_data_partitioned as (
@@ -178,6 +171,5 @@ select
 from 
     source_data
 where rn = 1
+;
 
-    );
-  

@@ -77,7 +77,7 @@ class TestDataExporterToGoogleCloudStorage(unittest.TestCase):
     @patch('mage_ai.exporter.pq.write_table')
     def test_export_data_to_google_cloud_storage(self, mock_write_rows, mock_with_config):
         
-        # acts as if file doens't already exist 
+        # acts as if file doesn't already exist 
         mock_exists = MagicMock(return_value=False)
         mock_with_config.return_value.exists = mock_exists
 
@@ -96,7 +96,7 @@ class TestDataExporterToGoogleCloudStorage(unittest.TestCase):
             'magnitude': [3.0, 4.5]
         })
 
-        # retuns as though a file already exists
+        # returns as though a file already exists
         mock_read_rows.return_value.to_pandas.return_value = existing_df
 
         mock_exists = MagicMock(return_value=True)

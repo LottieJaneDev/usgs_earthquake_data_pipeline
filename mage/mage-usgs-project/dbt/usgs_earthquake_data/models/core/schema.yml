@@ -9,6 +9,11 @@ sources:
 
 models:
   - name: fact_usgs_earthquake_data
+    materialized: table
+    partition_by: 
+      - event_date
+    cluster_by:
+      - event_type, event_magnitude, network_reported_by_name
     description: final fact table
     columns:
       - name: unique_event_id

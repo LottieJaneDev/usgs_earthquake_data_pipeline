@@ -1,4 +1,4 @@
-{{ config(materialized="table") }}
+{{ config(materialized="view") }}
 
 with
     source_data_partitioned as (

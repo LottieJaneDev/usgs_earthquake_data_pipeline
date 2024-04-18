@@ -89,5 +89,7 @@ venv.bak/
 # Other 
 TODO.md
 scratchpad.txt
-mage/mage-usgs-project/dbt/usgs_earthquake_data/target/graph.gpickle
-mage/mage-usgs-project/dbt/usgs_earthquake_data/target/partial_parse.msgpack
+graph.gpickle
+partial_parse.msgpack
+# mage/mage-usgs-project/dbt/usgs_earthquake_data/target/graph.gpickle
+# mage/mage-usgs-project/dbt/usgs_earthquake_data/target/partial_parse.msgpack
