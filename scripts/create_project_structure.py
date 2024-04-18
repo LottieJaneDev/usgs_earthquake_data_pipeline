@@ -19,15 +19,7 @@ def project_structure(root_directory, indent=""):
 
 
     # Directories to be excluded
-    exclude_directories = [".git", ".terraform", ".ssh_tunnel", "mage_data", "__pycache__", "logs", 
-                        "dbt_packages", ".profiles_interpolated_temp_0e225d18-2394-44b1-90e4-c1adf8275538", 
-                        ".profiles_interpolated_temp_47f4f3d9-58b9-4b45-97d7-4024396f0f09",
-                        ".profiles_interpolated_temp_8226750a-6b99-458f-bb36-03fcc03bb310",
-                        ".profiles_interpolated_temp_844dc124-549b-4ae9-9d60-bb2065b9f065",
-                        ".profiles_interpolated_temp_97ee1e01-31fd-48f6-9eb6-21a9a4c37939",
-                        ".profiles_interpolated_temp_985d10f2-fcd5-43df-af65-0ab5476bd38f",
-                        ".profiles_interpolated_temp_b863180c-9e1d-4e4f-a3b9-d6f12d7366dc",
-                        ".profiles_interpolated_temp_d31cdea2-317e-472f-9f6e-c603d15fe047", "metadata.yml"]
+    exclude_directories = []
 
 
     # Recursive call for subdirectories & skip excluded directories
@@ -40,6 +32,4 @@ def project_structure(root_directory, indent=""):
 
 
 # Replace with your file path:
-project_structure(
-    r"/home/lottie/usgs_earthquake_data_pipeline/"
-)
+project_structure(r"/home/lottie/usgs_earthquake_data_pipeline/")

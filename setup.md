@@ -82,7 +82,6 @@ docker run hello-world
     <br>
     <img src="images/docker-hello-world.jpg" alt="docker-hello-world" height="300" width="300">
     </details>
-    <br>
 
 ## Project Start 
 

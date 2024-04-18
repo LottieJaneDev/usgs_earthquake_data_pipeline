@@ -18,8 +18,6 @@ variable "location" {
   default     = "US"
 }
 
-# Not sure if we need zone as well... will see when we plan.. 
-
 variable "region" {
   type        = string
   description = "The Region your GCP Resources are set up in, referred to as ZONE in GCP e.g. 'us-central1'."

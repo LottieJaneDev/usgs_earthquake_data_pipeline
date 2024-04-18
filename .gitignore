@@ -27,7 +27,10 @@ __init__.py
 /mage_data*
 *.json
 **/__pycache__/
+**/dbt_packages/**
 dbt_packages/
+dbt_packages/codegen
+dbt_packages/dbt_utils
 .DS_Store
 .file_versions
 .gitkeep

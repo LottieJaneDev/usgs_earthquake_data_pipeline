@@ -96,7 +96,7 @@ This pipeline is triggered by Pipeline Two. It acts as the Analytics Transformat
 
 <div align="center">
 
-<img src="../images/dbt_pipeline.jpg" alt="dbt_pipeline" height="550" width="600">
+<img src="../images/dbt_pipeline.jpg" alt="dbt_pipeline" height="700" width="650">
 
 -----------------------------
 
