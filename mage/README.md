@@ -39,11 +39,11 @@ Initialise Mage by running the below code block:
 cd ~/usgs_earthquake_data_pipeline/setup/ && ./project_run.sh
 ```
 
-Run the ['project_run.sh'](usgs_earthquake_data_pipeline/setup/project_run.sh) shell script. This will: 
+Run the [project_run.sh](../setup/project_run.sh) shell script. This will: 
 
 1. copy your service account keys into the project directory for Mage to access & authorise Mage to interact with the Google Cloud resources. 
 
-2. Start the Docker container using the [`docker-compose.yaml`](usgs_earthquake_data_pipeline/docker-compose.yaml) configurations & the subsequent Mage [`Dockerfile`](usgs_earthquake_data_pipeline/mage/Dockerfile) to build the container image. 
+2. Start the Docker container using the [`docker-compose.yaml`](../docker-compose.yaml) configurations & the subsequent Mage [`Dockerfile`](../mage/Dockerfile) to build the container image. 
 
 3. Automatically set up [port forwarding](https://medium.com/@maheshwar.ramkrushna/chap-11-docker-port-mapping-exposing-container-services-to-the-host-system-66de32abdb2f#:~:text=Docker%20port%20mapping%2C%20also%20known,accessible%20from%20outside%20the%20container.), this is required so that you can access the port INSIDE the Docker container, from your local machine OUTSIDE of the Docker container, click to the link for more information if you're not familiar with the process. 
 
@@ -53,7 +53,7 @@ Run the ['project_run.sh'](usgs_earthquake_data_pipeline/setup/project_run.sh) s
 
 6. You can now view your [Google Cloud Storage Bucket](https://console.cloud.google.com/storage/) to see the parquet files have been generated & your [Google Cloud BigQuery Dataset](https://console.cloud.google.com/bigquery) to see that your Dataset now has a partitioned & clustered table containing the earthquakes events! 
 
-7. You will also notice there's more than one table in your Dataset. This is due to the DBT (DataBuildTools) integration layer. See [below](#dbt-data-build-tools) DBT (Data Build Tools)_) section on DBT for full information
+7. You will also notice there's more than one table in your Dataset. This is due to the DBT (DataBuildTools) integration layer. See below "DBT (Data Build Tools) Analytics Engineering Layer" section for full information
 __________________________________
 
 ## _Project Pipelines_
@@ -67,7 +67,7 @@ There are three pipelines in Mage; `"usgs_ingest_historic"`, `"usgs_30_min_inter
 >**Note;** speaking with Mage directly via their Slack channel, an initial 'trigger once' that is set in the past (at the time of me creating this project) will run for you when you start the project as the logic is **_'if now is greater than start date, run'_** & there is a check box for **_'Create initial pipeline run if start date is before current execution period'_**, I have a 'trigger once' saved in code (`triggers.yaml`) & I've been assured that the initial pipeline will run when you start the project. However... should this not happen, you will need to go to the Mage UI at local host 6789, from the left menu, click on 'triggers', click on 'initial_project_trigger' & click 'Run@Once' button.
 
 
-<img src="images/mage-trigger-screenshot.png" alt="mage_trigger_screenshot" height="400" width="900">
+<img src="../images/mage-trigger-screenshot.png" alt="mage_trigger_screenshot" height="400" width="900">
 
 <br>
 
@@ -77,7 +77,7 @@ There are three pipelines in Mage; `"usgs_ingest_historic"`, `"usgs_30_min_inter
 
 > Alternatively, I have set my Google Cloud Storage bucket to public [here](https://console.cloud.google.com/storage/browser/usgs-raw-data/) you can read this into your BigQuery table using a `SQL Query` tab if you wish to.
 
-<img src="images/usgs_ingest_historic_earthquake_data_pipeline.jpg" alt="ingest_historic_pipeline" height="400" width="800">
+<img src="../images/usgs_ingest_historic_earthquake_data_pipeline.jpg" alt="ingest_historic_pipeline" height="400" width="800">
 
 -----------------------------
 
@@ -85,7 +85,7 @@ There are three pipelines in Mage; `"usgs_ingest_historic"`, `"usgs_30_min_inter
 
 `"usgs_earthquake_data_30min_intervals"` - this pipeline is triggered automatically when the above finishes using a 'sensor' block. It runs on a 30 minute trigger that can be changed to more/less frequent if desired via the 'Triggers' section of the Mage UI. It averages around 6 earthquakes every run, which isn't a large amount of data but I wanted the dashboard to be as up-to-date as possible. The difference between the code for both pipelines is minimal but significant. This pipeline will check if a parquet file exists for the current date & appends the rows to it as it has to do this every 30 minutes. This pipeline is also where the DBT integration comes into play, where you'll find the staging, dimensional & fact models alongside the Mage blocks. 
 
-<img src="images/usgs_ingest_30min_intervals_earthquake_data_pipeline.jpg" alt="ingest_30min_pipeline" height="500" width="700">
+<img src="../images/usgs_ingest_30min_intervals_earthquake_data_pipeline.jpg" alt="ingest_30min_pipeline" height="500" width="700">
 
 ## _DBT (Data Build Tools) Analytics Engineering Layer_
 
@@ -95,7 +95,11 @@ Usually Data Build Tools & Analytics Engineering would be a separate folder & se
 
 This pipeline is triggered by Pipeline Two. It acts as the Analytics Transformation layer over the top the raw dataset performing final transformations, type casting & data enrichment. The product of this pipeline is the `fact_usgs_earthquake_data` table which acts as the single source of truth & data layer that should be made available for data analysis. The DAG for this pipeline can be found below in the 'Transformations & Data Build Tools' section. 
 
-<img src="images/dbt_pipeline.jpg" alt="dbt_pipeline" height="550" width="500">
+<div align="center">
 
+<img src="../images/dbt_pipeline.jpg" alt="dbt_pipeline" height="550" width="500">
 
+-----------------------------
+
+Head back to the [setup](../setup.md) file for the next step! 😃 
 

@@ -28,8 +28,8 @@ If you are unfamiliar with this way of working, I highly recommend following thi
     <br>
     <details>
     <summary>example screenshot</summary>
-    <img src="images/machine-config1.jpg" alt="VM-CONFIG1" height="300" width="600">
-    <img src="images/machine-config2.jpg" alt="VM-CONFIG2" height="300" width="600">
+    <img src="../images/machine-config1.jpg" alt="VM-CONFIG1" height="300" width="600">
+    <img src="../images/machine-config2.jpg" alt="VM-CONFIG2" height="300" width="600">
     </details>
     <br>
 
@@ -84,7 +84,7 @@ Confirm with a `yes` - note; if you put a password in here, then you'll have to 
 
 You should now see the homescreen of your Virtual Machine 
 
-<img src="images\bash-ssh-screen.jpg" alt="bash-ssh-login" height="300" width="600">
+<img src="../images/bash-ssh-screen.jpg" alt="bash-ssh-login" height="300" width="600">
 
 `Ctrl + D` to log out of the VM. We will now set up a `config` file to allow for easier access each time using just `ssh vm-name` 
 
@@ -137,10 +137,9 @@ We will create the individual services accounts for each tool used in this proje
 <details>
 <summary>example screenshot</summary>
 
-<img src="images/service-account-setup1.jpg" alt="service-account-setup1" height="300" width="600">
-
+<img src="../images/service-account-setup1.jpg" alt="service-account-setup1" height="300" width="400">
 </details>
-
+<br>
 
 **Assign Roles:**
 
@@ -155,10 +154,10 @@ We will create the individual services accounts for each tool used in this proje
 <details>
 <summary>example screenshot</summary>
 
-<img src="images/service-account-setup2.jpg" alt="service-account-setup2" height="300" width="600">
+<img src="../images/service-account-setup2.jpg" alt="service-account-setup2" height="300" width="300">
 
 </details>
-
+<br>
 
 **Generate Keys & Download Credentials:**
 
@@ -177,13 +176,13 @@ We will create the individual services accounts for each tool used in this proje
 
 <details>
 <summary>example screenshot</summary>
-<img src="usgs_earthquake_data_pipeline/images/service-account-keys.jpg" alt="serviceaccountkeys" height="300" width="600">
+<img src="../images/service-account-keys.jpg" alt="serviceaccountkeys" height="300" width="800">
 </details>
 
 ------------------------
 
 Now you have a Google Cloud Platform Account, a working Ubuntu Linux Virtual Machine PLUS Docker & Terraform installed! A pretty good set up for creating projects 😃
 
-Head back here to the [main setup](usgs_earthquake_data_pipeline/setup.md) for the next step! 💻
+Head back here to the [main setup](../setup.md) for the next step! 💻
 
 ------------------------

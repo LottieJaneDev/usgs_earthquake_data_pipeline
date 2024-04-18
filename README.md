@@ -35,7 +35,7 @@ _**Author | Lottie Jane Pollard**_
 <img src="images/seismicwaves.jpg" alt="Seismic Waves" height="300" width="500">
 
 
-**IMPORTANT;** _to skip the project overview & head straight to set up, click [here.](setup.md) Do not clone the repository locally, the setup will guide you & clone the repository automatically._
+⚠️**IMPORTANT⚠️** _to skip the project overview & head straight to set up, click [here.](setup.md) Do not clone the repository locally, the setup will guide you & clone the repository automatically._
 
 ## Table of Contents
 
@@ -53,7 +53,7 @@ _**Author | Lottie Jane Pollard**_
   <a href="#partitions--clusters">Partitions & Clusters</a> •
   <a href="#Transformations--Data-Build-Tools">Transformations & Data Build Tools</a> •
   <a href="#testing">Testing</a> •
-  <a href="#dashboard--visualisation">Dashboard & Visualisation</a> •
+  <a href="#dashboard">Dashboard</a> •
   <a href="#further-ideas--next-steps">Further Ideas & Next Steps</a> •
   <a href="#licensing">Licensing</a> •
   <a href="#contributing--support">Contributing & Support</a> •
@@ -69,11 +69,11 @@ _**Author | Lottie Jane Pollard**_
 
 The project leverages data from the U.S. Geological Survey (USGS), the science arm of the Department of the Interior, providing essential earth, water, biological, and mapping data for environmental, resource, and public safety decision-making. Established by Congress in 1879, the USGS continuously evolves its scientific endeavors to meet societal needs.
 
-Aligned with its mission, the USGS offers an Application Programming Interface (API) for accessing earthquake data, including recent events, free of charge. For specifics on data update frequency, refer to the relevant page on the USGS website.
+Aligned with its mission, the USGS offers an Application Programming Interface (API) for accessing earthquake data, including recent events, free of charge.
 
 ### _Problem Statement_
 
-Efficiently collecting, processing, and disseminating critical earthquake information is imperative due to global seismic activity's varying magnitudes and frequencies. There's a pressing need to streamline earthquake data management for timely analysis, decision-making, and response efforts.
+Efficiently collecting, processing, and disseminating critical earthquake information is imperative due to global seismic activity's varying magnitudes and frequencies. There's a pressing need to streamline earthquake data management for timely analysis, decision-making, and response efforts across the globe.
 
 ### _Solution_
 
@@ -279,15 +279,16 @@ There are three pipelines in Mage; `"usgs_ingest_historic"`, `"usgs_30_min_inter
 `"usgs_earthquake_data_ingest_historic"` - is set to trigger upon starting the project (see note below) to ingest the previous 30 days of data to initially populate your dataset. This pipeline will create your BigQuery table, within the BigQuery Dataset you provisioned earlier through Terraform & save the parquet files to your Google Cloud Storage Bucket. 
 
 >**Note;** speaking with Mage directly via their Slack channel, an initial 'trigger once' that is set in the past (at the time of me creating this project) will run for you when you start the project as the logic is **_'if now is greater than start date, run'_** & there is a check box for **_'Create initial pipeline run if start date is before current execution period'_**, I have a 'trigger once' saved in code (`triggers.yaml`) & I've been assured that the initial pipeline will run when you start the project. However... should this not happen, you will need to go to the Mage UI at local host 6789, from the left menu, click on 'triggers', click on 'initial_project_trigger' & click 'Run@Once' button.
-
+<br>
 
 <img src="images/mage-trigger-screenshot.png" alt="mage_trigger_screenshot" height="400" width="900">
 
 <br>
+🌟**PIPELINE EXTENSION TASK**🌟 | For an extra challenge!! Within the first pipeline block (historic_pipeline) there is the option to adjust the dates & get data as far back as you want to propagate your dataset! (Only as far as 1st January 2024 unless you disable the unit tests within the rest of the pipeline). See if you can use the `start_time` & `end_time` parameters to fill your dataset with data for the complete year! Don't forget the initial trigger above.. you may need to to de-deduplicate data if you choose this extra task! Good luck! 😄
 
->🌟**PIPELINE EXTENSION TASK**🌟 | For an extra challenge!! Within the first pipeline block (historic_pipeline) there is the option to adjust the dates & get data as far back as you want to propagate your dataset! (Only as far as 1st January 2024 unless you disable the unit tests within the rest of the pipeline). See if you can use the `start_time` & `end_time` parameters to fill your dataset with data for the complete year! Don't forget the initial trigger above.. you may need to to de-deduplicate data if you choose this extra task! Good luck! 😄
+<br>
 
->Note; _This pipeline can be manually amended to set a start date & end date of your choosing. You can propagate your dataset as wide as you wish, the only limitations here are 20,000 rows per API Call, but no daily limitation on API calls. Please note; if you run this pipeline irresponsibly you may incur duplicate data. See the SQL file [here](bigquery/BiQuery_SQL_Queries.sql) for deduplication query should you accidentally run into this problem._
+>Note; _This pipeline can be manually amended to set a start date & end date of your choosing. You can propagate your dataset as wide as you wish, the only limitations here are 20,000 rows per API Call, but no daily limitation on API calls. Please note; if you run this pipeline irresponsibly you may incur duplicate data. See the SQL file [here](bigquery/BigQuery_SQL_Queries.sql) for deduplication query should you accidentally run into this problem._
 
 > Alternatively, I have set my Google Cloud Storage bucket to public [here](https://console.cloud.google.com/storage/browser/usgs-raw-data/) you can read this into your BigQuery table using a `SQL Query` tab if you wish to.
 
@@ -508,7 +509,6 @@ class TestDataExporterToGoogleCloudStorage(unittest.TestCase):
 
 <br>
 </details>
-<br>
 
 -----------------------
 
@@ -537,6 +537,10 @@ _**Dashboard Video**_
 
 <br>
 You can, of course, use the data to create your own dashboard in your preferred visualisation tool if you wish. 
+
+---------------------------
+
+⚠️**IMPORTANT⚠️** _Do not clone the repository locally just yet, the setup file will guide you & clone the repository automatically. Click [here.](setup.md) to get started!!_
 
 -----------------------------
 

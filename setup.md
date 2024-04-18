@@ -1,6 +1,6 @@
 # Project Set Up
 
->NOTE; Do not clone this repository until you are in the home folder of your Virtual Machine, the [installation script](setup/install.sh) will do that for your! 😄
+>NOTE; Do not clone this repository until you are in the home folder of your Virtual Machine, the [installation script](setup/install.sh)! Follow the below steps to recreate the project! have fun! 😄
 
 >NOTE; the project instructions for reproducibility are based on working within a Google Cloud Platform Virtual Machine environment on an [Unbuntu](https://ubuntu.com/desktop) machine. In my opinion, interacting with the GCP VM works best when using an IDE such as VS Code, where you have instant access to your files, the terminal & port forwarding, although you can use a standard terminal that allows SSH connection. If you are using anything other than the aforementioned, you may have to alter the instructions to suit your set up.  
 
@@ -34,7 +34,7 @@ To run this project locally, you will need to adjust the set up instructions and
 
 3. If not already, `'Open a File or Folder'` in the Command Pallete `(F1)` and select the `home` folder of the virtual machine. This will display the entire contents of your virtual machine and we're ready to go!
 
-4. Open the terminal in VS Code `(CTRL+')` and run:
+4. Open the terminal in VS Code `(CTRL + ')` and run:
 
     ```bash
     git clone https://github.com/LottieJaneDev/usgs_earthquake_data_pipeline.git
@@ -58,9 +58,9 @@ To run this project locally, you will need to adjust the set up instructions and
     ```
 
     * *Copy your Service Account Keys to the Virtual Machine*
-    * *Create your own .env file to pass your own environment variables around the project*
+    * *Create your own .env file to pass environment variables throughout the project*
     * *Install Anaconda on the Virtual Machine*
-    * *Install Docker on the Virtual Machine*
+    * *Install Docker & Docker-Compose on the Virtual Machine*
     * *Install Terraform on the Virtual Machine*
 
 > To set up the environment variables required for the project, the `install.sh` will prompt you to enter specific values. Each variable corresponds to a key component of the project configuration. For instance, you will need to provide the name of the virtual machine you just created, the local file paths to the Terraform and Mage service account JSON files on your personal computer, the name of the Google Cloud Platform (GCP) project you created (e.g., 'usgs-data'), the geographical location of the GCP resources (e.g., 'US'), the GCP region and zone where the resources will be deployed (e.g., 'us-central1-c' and 'us-central1', respectively), the name of the Google Cloud Storage bucket (e.g., 'usgs-raw-data'), and the name of the BigQuery dataset (e.g., 'usgs_earthquake_data'). Once you provide these values, they will be automatically appended to a newly created .env file, ensuring seamless configuration of the project environment. The current `example.env` file can be deleted, it's only there as a reference. 
@@ -86,15 +86,15 @@ docker run hello-world
 
 ## Project Start 
 
-1. Spin up the project resources using Terraform (Infrastructure as Code) (Iac) follow the [Terraform start guide here](terraform/README.md)
+1. Spin up the project resources using Terraform (Infrastructure as Code) (Iac) follow the [Terraform start guide here](../terraform/README.md)
 
-2. Spin up the Docker Container for Mage, follow the [Mage Project Start guide here](mage/README.md) this includes the DBT analytics engineering layer. 
+2. Spin up the Docker Container for Mage, follow the [Mage Project Start guide here](../mage/README.md) this includes the DBT analytics engineering layer. 
 
 3. Visit the Final [Project Dashboard](https://lookerstudio.google.com/reporting/b0be0518-3803-4301-9829-0125d48be9df) to visualise the earthquakes from all around the globe :earth_africa: 
 
 ## Project End 
 
-1. Run the shutdown script [here](setup/shutdown.sh) ⚠️ IMPORTANT ⚠️ Make sure that your Terraform resources (BigQuery Datasets & Tables & Google Cloud Storage Buckets) have been destroyed by manually checking as well, just to be sure the destruction completed & to 100% avoid being charged for any provisioned resources. 
+1. Run the shutdown script [here](../shutdown.sh) ⚠️ IMPORTANT ⚠️ Make sure that your Terraform resources (BigQuery Datasets & Tables & Google Cloud Storage Buckets) have been destroyed by manually checking as well, just to be sure the destruction completed & to 100% avoid being charged for any provisioned resources. 
 
 2. ⚠️ IMPORTANT ⚠️ Ensure that you turn off your billing & remove any cards you may have connected as well as deleting your virtual machine & resources mentioned above before the end of your free trial, unless you know what you are doing & have an understanding of the potential cost implications of running this or any other project in a Cloud environment. 
 
