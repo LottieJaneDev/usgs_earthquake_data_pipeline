@@ -196,7 +196,6 @@ Initial Incoming Data, one minor transformation is carried out on the data prior
 | magSource            | object    | Network that originally authored the reported magnitude for this event.                                                                            
 
 -----------------------------
------------------------------
 
 **Silver Layer** 🥈
 
@@ -284,13 +283,14 @@ There are three pipelines in Mage; `"usgs_ingest_historic"`, `"usgs_30_min_inter
 <img src="images/mage-trigger-screenshot.png" alt="mage_trigger_screenshot" height="400" width="900">
 
 <br>
+
 🌟**PIPELINE EXTENSION TASK**🌟 | For an extra challenge!! Within the first pipeline block (historic_pipeline) there is the option to adjust the dates & get data as far back as you want to propagate your dataset! (Only as far as 1st January 2024 unless you disable the unit tests within the rest of the pipeline). See if you can use the `start_time` & `end_time` parameters to fill your dataset with data for the complete year! Don't forget the initial trigger above.. you may need to to de-deduplicate data if you choose this extra task! Good luck! 😄
 
 <br>
 
->Note; _This pipeline can be manually amended to set a start date & end date of your choosing. You can propagate your dataset as wide as you wish, the only limitations here are 20,000 rows per API Call, but no daily limitation on API calls. Please note; if you run this pipeline irresponsibly you may incur duplicate data. See the SQL file [here](bigquery/BigQuery_SQL_Queries.sql) for deduplication query should you accidentally run into this problem._
+Note; _This pipeline can be manually amended to set a start date & end date of your choosing. You can propagate your dataset as wide as you wish, the only limitations here are 20,000 rows per API Call, but no daily limitation on API calls. Please note; if you run this pipeline irresponsibly you may incur duplicate data. See the SQL file [here](bigquery/BigQuery_SQL_Queries.sql) for deduplication query should you accidentally run into this problem._
 
-> Alternatively, I have set my Google Cloud Storage bucket to public [here](https://console.cloud.google.com/storage/browser/usgs-raw-data/) you can read this into your BigQuery table using a `SQL Query` tab if you wish to.
+Alternatively, I have set my Google Cloud Storage bucket to public [here](https://console.cloud.google.com/storage/browser/usgs-raw-data/) you can read this into your BigQuery table using a `SQL Query` tab if you wish to.
 
 <img src="images/usgs_ingest_historic_earthquake_data_pipeline.jpg" alt="ingest_historic_pipeline" height="400" width="800">
 
