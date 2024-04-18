@@ -278,11 +278,13 @@ There are three pipelines in Mage; `"usgs_ingest_historic"`, `"usgs_30_min_inter
 `"usgs_earthquake_data_ingest_historic"` - is set to trigger upon starting the project (see note below) to ingest the previous 30 days of data to initially populate your dataset. This pipeline will create your BigQuery table, within the BigQuery Dataset you provisioned earlier through Terraform & save the parquet files to your Google Cloud Storage Bucket. 
 
 >**Note;** speaking with Mage directly via their Slack channel, an initial 'trigger once' that is set in the past (at the time of me creating this project) will run for you when you start the project as the logic is **_'if now is greater than start date, run'_** & there is a check box for **_'Create initial pipeline run if start date is before current execution period'_**, I have a 'trigger once' saved in code (`triggers.yaml`) & I've been assured that the initial pipeline will run when you start the project. However... should this not happen, you will need to go to the Mage UI at local host 6789, from the left menu, click on 'triggers', click on 'initial_project_trigger' & click 'Run@Once' button.
-<br>
-
-<img src="images/mage-trigger-screenshot.png" alt="mage_trigger_screenshot" height="400" width="900">
 
 <br>
+
+<img src="images/mage-trigger-screenshot.png" alt="mage_trigger_screenshot" height="400" width="700">
+
+<br>
+
 
 🌟**PIPELINE EXTENSION TASK**🌟 | For an extra challenge!! Within the first pipeline block (historic_pipeline) there is the option to adjust the dates & get data as far back as you want to propagate your dataset! (Only as far as 1st January 2024 unless you disable the unit tests within the rest of the pipeline). See if you can use the `start_time` & `end_time` parameters to fill your dataset with data for the complete year! Don't forget the initial trigger above.. you may need to to de-deduplicate data if you choose this extra task! Good luck! 😄
 
@@ -522,16 +524,18 @@ A dashboard has been developed using Google Looker Studio to visualise seismic e
 
 _**Dashboard Image**_
 
-<img src="images/dashboard_image.jpg" alt="dashboard" height="400" width="800">
+<img src="images/dashboard_image.jpg" alt="dashboard" height="400" width="700">
 
 <br>
+
 
 The dashboard collates the data gathered into a visual representation that has been built with user engagement & interaction in mind. You can filter the `seismic event` from `ice quake` to `mine collapse`, filter on the event's `magnitude`, choose your time period & filter on the `seismic network station` reporting the event. The interactive map is powered by Google Maps giving every detail from street view to satellite imagery. The darker the bubble the more extreme the seismic event. 
 
 _**Dashboard Video**_
 
 <br>
-<img src="images/dashboard_video.gif" alt="dashboard" height="400" width="800">
+<img src="images/dashboard_video.gif" alt="dashboard" height="400" width="700">
+
 <br>
 
 
@@ -595,3 +599,6 @@ Acknowledgement to [DataTalksClub](https://datatalks.club/)! for mentoring us th
 [![Data Talks Club](images/datatalks_club_cover.jpg)](https://www.linkedin.com/company/datatalks-club/)
 
 ---------------------------
+
+
+⚠️**IMPORTANT⚠️** _Start reproducing the project yourself! Don't clone the repository locally just yet, the setup file will guide you & clone the repository for you, Click [here to get started!!](setup.md)_
