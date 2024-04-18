@@ -1,3 +1,0 @@
---select models/* --exclude schema_codegen --vars '{"is_test_run": false}'
---select models/* --exclude schema_codegen dbt docs generate
---select models/* --exclude schema_codegen dbt docs serve

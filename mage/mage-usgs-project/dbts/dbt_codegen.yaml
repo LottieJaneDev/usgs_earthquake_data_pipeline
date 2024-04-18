@@ -1,1 +1,0 @@
-$ dbt run-operation generate_source --args 'schema_name: staging_usgs_earthquake_data'

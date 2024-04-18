@@ -1,7 +1,0 @@
-#libraries used in the project
-
-black
-
-########## STATEMENT #############
-
-# Mage provides a comprehensive selection of pre-installed packages, minimising the need for extensive dependencies in the requirements.txt file
