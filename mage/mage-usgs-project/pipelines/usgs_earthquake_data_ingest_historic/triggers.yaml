@@ -1,0 +1,13 @@
+triggers:
+- envs: []
+  last_enabled_at: 2024-04-13 18:03:17.721020
+  name: initial_project_trigger
+  pipeline_uuid: usgs_earthquake_data_ingest_historic
+  schedule_interval: '@once'
+  schedule_type: time
+  settings:
+    create_initial_pipeline_run: true
+  sla: null
+  start_time: 2024-04-11 09:00:00
+  status: active
+  variables: {}

@@ -1,0 +1,252 @@
+blocks:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    dbt:
+      command: deps
+    dbt_profile_target: ''
+    dbt_project_name: dbt/usgs_earthquake_data
+    disable_query_preprocessing: false
+    export_write_policy: append
+    file_source:
+      path: dbts/dbt_deps.yaml
+    use_raw_sql: false
+  downstream_blocks:
+  - dbt_seeds
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: yaml
+  name: dbt_deps
+  retry_config: null
+  status: executed
+  timeout: null
+  type: dbt
+  upstream_blocks: []
+  uuid: dbt_deps
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    dbt:
+      command: seed
+    dbt_profile_target: ''
+    dbt_project_name: dbt/usgs_earthquake_data
+    disable_query_preprocessing: false
+    export_write_policy: append
+    file_source:
+      path: dbts/dbt_seeds.yaml
+    use_raw_sql: false
+  downstream_blocks:
+  - dbt/usgs_earthquake_data/macros/get_network_names
+  - dbt/usgs_earthquake_data/macros/get_mag_type_conversion_name
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: yaml
+  name: dbt_seeds
+  retry_config: null
+  status: executed
+  timeout: null
+  type: dbt
+  upstream_blocks:
+  - dbt_deps
+  uuid: dbt_seeds
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    dbt_project_name: dbt/usgs_earthquake_data
+    file_path: dbt/usgs_earthquake_data/macros/get_mag_type_conversion_name.sql
+    file_source:
+      path: dbt/usgs_earthquake_data/macros/get_mag_type_conversion_name.sql
+      project_path: dbt/usgs_earthquake_data
+    limit: 1000
+  downstream_blocks:
+  - dbt/usgs_earthquake_data/models/staging/staging_usgs_earthquake_data
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/usgs_earthquake_data/macros/get_mag_type_conversion_name
+  retry_config: null
+  status: executed
+  timeout: null
+  type: dbt
+  upstream_blocks:
+  - dbt_seeds
+  uuid: dbt/usgs_earthquake_data/macros/get_mag_type_conversion_name
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    dbt_project_name: dbt/usgs_earthquake_data
+    file_path: dbt/usgs_earthquake_data/macros/get_network_names.sql
+    file_source:
+      path: dbt/usgs_earthquake_data/macros/get_network_names.sql
+      project_path: dbt/usgs_earthquake_data
+    limit: 1000
+  downstream_blocks:
+  - dbt/usgs_earthquake_data/macros/get_mag_alert_level
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/usgs_earthquake_data/macros/get_network_names
+  retry_config: null
+  status: executed
+  timeout: null
+  type: dbt
+  upstream_blocks:
+  - dbt_seeds
+  uuid: dbt/usgs_earthquake_data/macros/get_network_names
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    dbt_project_name: dbt/usgs_earthquake_data
+    file_path: dbt/usgs_earthquake_data/macros/get_mag_alert_level.sql
+    file_source:
+      path: dbt/usgs_earthquake_data/macros/get_mag_alert_level.sql
+      project_path: dbt/usgs_earthquake_data
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: get_mag_alert_level
+  retry_config: null
+  status: executed
+  timeout: null
+  type: dbt
+  upstream_blocks:
+  - dbt/usgs_earthquake_data/macros/get_network_names
+  uuid: dbt/usgs_earthquake_data/macros/get_mag_alert_level
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    dbt: {}
+    dbt_profile_target: development
+    dbt_project_name: dbt/usgs_earthquake_data
+    disable_query_preprocessing: false
+    export_write_policy: append
+    file_path: dbt/usgs_earthquake_data/models/staging/staging_usgs_earthquake_data.sql
+    file_source:
+      path: dbt/usgs_earthquake_data/models/staging/staging_usgs_earthquake_data.sql
+      project_path: dbt/usgs_earthquake_data
+    limit: 1000
+    use_raw_sql: false
+  downstream_blocks:
+  - dbt_run_staging_models_limit_100
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/usgs_earthquake_data/models/staging/staging_usgs_earthquake_data
+  retry_config: null
+  status: executed
+  timeout: null
+  type: dbt
+  upstream_blocks:
+  - dbt/usgs_earthquake_data/macros/get_mag_type_conversion_name
+  uuid: dbt/usgs_earthquake_data/models/staging/staging_usgs_earthquake_data
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    dbt:
+      command: run
+    dbt_profile_target: ''
+    dbt_project_name: dbt/usgs_earthquake_data
+    disable_query_preprocessing: false
+    export_write_policy: append
+    file_source:
+      path: dbts/dbt_run_staging_models_limit_100.yaml
+    use_raw_sql: false
+  downstream_blocks:
+  - dbt/usgs_earthquake_data/models/core/fact_usgs_earthquake_data
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: yaml
+  name: dbt_run_staging_models_limit_100
+  retry_config: null
+  status: executed
+  timeout: null
+  type: dbt
+  upstream_blocks:
+  - dbt/usgs_earthquake_data/models/staging/staging_usgs_earthquake_data
+  uuid: dbt_run_staging_models_limit_100
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    dbt: {}
+    dbt_profile_target: production
+    dbt_project_name: dbt/usgs_earthquake_data
+    disable_query_preprocessing: false
+    export_write_policy: append
+    file_path: dbt/usgs_earthquake_data/models/core/fact_usgs_earthquake_data.sql
+    file_source:
+      path: dbt/usgs_earthquake_data/models/core/fact_usgs_earthquake_data.sql
+      project_path: dbt/usgs_earthquake_data
+    limit: 1000
+    use_raw_sql: false
+  downstream_blocks:
+  - dbt_build_all_test_run_false
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dbt/usgs_earthquake_data/models/core/fact_usgs_earthquake_data
+  retry_config: null
+  status: executed
+  timeout: null
+  type: dbt
+  upstream_blocks:
+  - dbt_run_staging_models_limit_100
+  uuid: dbt/usgs_earthquake_data/models/core/fact_usgs_earthquake_data
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    dbt:
+      command: build
+    dbt_profile_target: production
+    dbt_project_name: dbt/usgs_earthquake_data
+    disable_query_preprocessing: false
+    export_write_policy: append
+    file_source:
+      path: dbts/dbt_build_all_test_run_false.yaml
+    use_raw_sql: false
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: yaml
+  name: dbt_build_all_test_run_false
+  retry_config: null
+  status: executed
+  timeout: null
+  type: dbt
+  upstream_blocks:
+  - dbt/usgs_earthquake_data/models/core/fact_usgs_earthquake_data
+  uuid: dbt_build_all_test_run_false
+cache_block_output_in_memory: false
+callbacks: []
+concurrency_config: {}
+conditionals: []
+created_at: '2024-04-12 11:50:04.455579+00:00'
+data_integration: null
+description: dbt_pipeline | Analytics layer over the project
+executor_config: {}
+executor_count: 1
+executor_type: local_python
+extensions: {}
+name: dbt_pipeline
+notification_config: {}
+remote_variables_dir: null
+retry_config: {}
+run_pipeline_in_one_process: false
+settings:
+  triggers:
+    save_in_code_automatically: true
+spark_config: {}
+tags: []
+type: python
+uuid: dbt_pipeline
+variables_dir: /home/src/mage_data/mage-usgs-project
+widgets: []

@@ -1,0 +1,10 @@
+# dbt super project - these files are needed for dbt to create docs for all the projects within this directory
+
+name: 'base'
+version: '1.0.0'
+config-version: 2
+profile: 'base'
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
