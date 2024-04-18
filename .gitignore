@@ -31,6 +31,7 @@ __init__.py
 dbt_packages/
 dbt_packages/codegen
 dbt_packages/dbt_utils
+/home/lottie/usgs_earthquake_data_pipeline/mage/mage-usgs-project/dbt/usgs_earthquake_data/dbt_packages/
 .DS_Store
 .file_versions
 .gitkeep
