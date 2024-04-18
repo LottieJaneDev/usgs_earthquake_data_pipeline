@@ -2,15 +2,13 @@
 
 > !Note: _Commands are displayed as `bash` by default, you may need to adjust them to your local shell if you are working outside of the Virtual Machine._
 
-> !Note: It is possible to set up your virtual machine using Terraform if you have it installed locally already. See Terraform directory [here](src\terraform). You can then skip to "_Connecting to the Virtual Machine from your Local Machine_" below.
-
 ## Account & Project
 
 If you are unfamiliar with this way of working, I highly recommend following this guidance on ['Setting up the Environment on Google Cloud VM & SSH Access'](https://youtu.be/ae-CV2KfoN0?list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb)
 
 ----------------------
 
-1. Go to [Google Cloud Platform](https://cloud.google.com) & create a FREE Google Cloud Platform account. You will recieve $300 of credits to use over a 90 day trial period. This will be more than enough to both replicate this project & trial GCP for yourself. Check out > [DataTalksClub](https://www.youtube.com/c/DataTalksClub) < for tutorials and much more!
+1. Go to [Google Cloud Platform](https://cloud.google.com) & create a FREE Google Cloud Platform account. You will receive $300 of credits to use over a 90 day trial period. This will be more than enough to both replicate this project & trial GCP for yourself. Check out > [DataTalksClub](https://www.youtube.com/c/DataTalksClub) < for tutorials and much more!
 
     > NOTE:  You will need to provide a payment method to set up your GCP account, but nothing will be taken until after your 90 day free trial or your $300 free credits expire.
 
@@ -18,7 +16,7 @@ If you are unfamiliar with this way of working, I highly recommend following thi
 
 3. Enable the `Service Usage API` to allow for smooth interaction between Terraform & GCP during resource provisioning later on. Click here to manually enable the API for your project - [ENABLE SERVICE USAGE API](https://console.cloud.google.com/apis/library/serviceusage.googleapis.com/)
 
-4. Create a GCP Virtual Machine to leverage external cloud computing power & better compatability, reducing local hardward/software restrictions
+4. Create a GCP Virtual Machine to leverage external cloud computing power & better compatibility, reducing local hardware/software restrictions
 
     From the main menu of your project, navigate to `Compute Engine - VM Instances` you be prompted to enable the `Compute Engine API`, enable this, click `CREATE INSTANCE` & set up your Virtual Machine
 
@@ -27,14 +25,15 @@ If you are unfamiliar with this way of working, I highly recommend following thi
     > e2-standard-4 | ubuntu-22.04 LTS amd64 focal image built on v20240307 x86/64 Architecture | Balanced persistent disk | 60GB
     >Allow 'full access to all Cloud APIs' | Advanced Networking: Static External IP Address is highly recommended in Network Settings
 
+    <br>
     <details>
     <summary>example screenshot</summary>
-    <img src="images/machine-config1.jpg" alt="VM-CONFIG" height="300" width="600">
-    <img src="images/machine-config2.jpg" alt="VM-CONFIG" height="300" width="600">
+    <img src="images/machine-config1.jpg" alt="VM-CONFIG1" height="300" width="600">
+    <img src="images/machine-config2.jpg" alt="VM-CONFIG2" height="300" width="600">
     </details>
     <br>
 
-    >>The 'Monthly estimate' you are given is if you were to leave the VM running 24/7, which we will not. I've used mine pretty much every day, I am on the last day of my trial today & still have £57 remaining. Just make sure you set a reminder for the last day of your free trial and be sure to shut everything down & cancel your account before it ends
+    >The 'Monthly estimate' you are given is if you were to leave the VM running 24/7, which we will not. I've used mine pretty much every day, I am on the last day of my trial today & still have £57 remaining. Just make sure you set a reminder for the last day of your free trial and be sure to shut everything down & cancel your account before it ends
 
 ----------------------
 
@@ -45,7 +44,7 @@ To connect to the VM from your local machine, you will need to create an [SSH Ke
 
 <details>
   <summary>Instructions if required | Setting up SSH Keys</summary>
-  
+ 
 Choose your preferred local directory to save your SSH keys securely in a hidden `.ssh` folder. The filename could be `gcp_vm_ssh` for example, `username` would be your preferred name
 
 Open a local `Git Bash` terminal where `ssh-keygen` is pre-installed:
@@ -106,20 +105,22 @@ Now, open a new terminal & type in `ssh VM-NAME` and you'll have instant access 
 
 </details>
 
+<br>
 
->In my opinion, interacting with the GCP VM works best when using an IDE such as VS Code, where you have instant access to your files, the terminal & port forwarding, although you can use a standard terminal that allows SSH connection.
+In my opinion, interacting with the GCP VM works best when using an IDE such as VS Code, where you have instant access to your files, the terminal & port forwarding, although you can use a standard terminal that allows SSH connection.
 >NOTE; You will need the [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) extension installed in VS Code if it's not already.
+
 
 Once you have created the SSH key connection as above, you simply need to open your local terminal and run `ssh name-of-virtual-machine`, so in my case I'd type `ssh usgs-vm` it would connect to the virtual machine & I'd be interacting as that machine from then on. Should you need to exit the connection, press `CTRL + Z` to escape out, then `ssh usgs-vm` to get back in, it really is that simple!
 
 > NOTE; if you get a `connection error 22` - make sure your virtual machine has been started & is up and running with a green tick in Google Cloud Console
 > NOTE; if you are not using a Google Cloud Virtual Machine for the recreation of this project, you will also need to install `Google Cloud CLI` on your local machine. Follow Google Cloud's [instructions here](https://cloud.google.com/sdk/docs/install-sdk), choose your operating system (OS) and follow along with the guide. Alternatively, if you have Docker installed locally, and are familiar with it's usage, you are able to use `Google Cloud CLI` via a docker image & subsequent container [here.](https://cloud.google.com/sdk/docs/downloads-docker)
 
->>> **IMPORTANT!!!** Remember to START and STOP the virtual machine only when in use as you will incur charges (from your free credits) per hour that it's running, you will see that these charges are minimal for keeping the virtual machine running but increase on days where you use more compute resources for tasks like data ingestion, transformations etc. Google has a handy tooltip that appear at the top of each log in telling you how many free credits you have & how many days left of your free trial.
+> ⚠️ **IMPORTANT!!!** Remember to START and STOP the virtual machine only when in use as you will incur charges (from your free credits) per hour that it's running, you will see that these charges are minimal for keeping the virtual machine running but increase on days where you use more compute resources for tasks like data ingestion, transformations etc. Google has a handy tooltip that appear at the top of each log in telling you how many free credits you have & how many days left of your free trial.
 
 ----------------------
 
-## Identity Access Managment (IAM) & Admin
+## Identity Access Management (IAM) & Admin
 
 It is considered best practice to maintain separate [service accounts](https://cloud.google.com/iam/docs/service-account-overview/) for each distinct service such as Docker, Terraform, DBT, and Mage. This approach enhances security and simplifies access control measures within a system. By assigning unique service accounts to each service, organisations can implement granular permissions, limiting the scope of access each service has to resources and data. In the event of a security breach or unauthorised access, the impact can be contained to the specific service affected, reducing the overall risk to the system.Separate service accounts also facilitate auditing and monitoring efforts, enabling administrators to track and analyse the activities of individual services more effectively. This segregation of duties contributes to a more robust and secure infrastructure overall.
 
@@ -135,7 +136,9 @@ We will create the individual services accounts for each tool used in this proje
 
 <details>
 <summary>example screenshot</summary>
-<img src="images/service-account-setup1.jpg" alt="serviceaccountsetup" height="300" width="600">
+
+<img src="images/service-account-setup1.jpg" alt="service-account-setup1" height="300" width="600">
+
 </details>
 
 
@@ -144,16 +147,16 @@ We will create the individual services accounts for each tool used in this proje
 * Next we will grant permissions for each service account accordingly depending on the resources they will need access to. This is to maintain security & modularity
 * In the "Select a role" dropdown, choose the appropriate roles for each service:
 
-  * __Mage__ | _BigQuery Admin, Storage Admin_ - so far... #maybe service account token creator
+  * __Mage__ | _BigQuery Admin, Storage Admin_
   * __Terraform__ | _Storage Admin, Storage Object Admin, BigQuery Admin_ 
-  #maybe service account token creator, maybe editor, service usage admin, Owner
-
   
 >Note; for this project we will use the [DataBuildTools (DBT)] integration that is conveniently built into Mage so we won't need a separate service account for DBT.
 
 <details>
 <summary>example screenshot</summary>
-<img src="images/service-account-setup2.jpg" alt="serviceaccountsetup" height="300" width="600">
+
+<img src="images/service-account-setup2.jpg" alt="service-account-setup2" height="300" width="600">
+
 </details>
 
 
@@ -174,13 +177,13 @@ We will create the individual services accounts for each tool used in this proje
 
 <details>
 <summary>example screenshot</summary>
-<img src="images/service-account-keys.jpg" alt="serviceaccountkeys" height="300" width="600">
+<img src="usgs_earthquake_data_pipeline/images/service-account-keys.jpg" alt="serviceaccountkeys" height="300" width="600">
 </details>
 
 ------------------------
 
 Now you have a Google Cloud Platform Account, a working Ubuntu Linux Virtual Machine PLUS Docker & Terraform installed! A pretty good set up for creating projects 😃
 
-Head back here to the [main setup](setup.md) for the next step! 💻
+Head back here to the [main setup](usgs_earthquake_data_pipeline/setup.md) for the next step! 💻
 
 ------------------------

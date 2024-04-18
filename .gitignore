@@ -27,6 +27,7 @@ __init__.py
 /mage_data*
 *.json
 **/__pycache__/
+dbt_packages/
 .DS_Store
 .file_versions
 .gitkeep
@@ -49,18 +50,17 @@ secrets/
 mage_ai/frontend/package-lock.json
 .idea
 **google_credentials.json
-**.env
+.env
 .history
 .user.yml
 **/dbt_utils/*
+
 
 # data files
 mage_ai/server/data/files/**
 default_repo
 instance_metadata.json
 ~/.mage_data
-
-# Mage with Cloud Run - remove if I don't use it #####
 
 # Terraform files
 **/.terraform*
@@ -72,6 +72,7 @@ instance_metadata.json
 *.plan
 *.lock.hcl
 *.tfvars
+terraform.tfvars
 *.tfvars.json
 
 # Environments

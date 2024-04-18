@@ -4,7 +4,7 @@
 
 ## Data Engineering Zoom Camp | 2024 Cohort | Capstone Project 
 
-_Author | Lottie Jane Pollard_
+_**Author | Lottie Jane Pollard**_
 
 -----------------------
 
@@ -40,21 +40,24 @@ _Author | Lottie Jane Pollard_
 ## Table of Contents
 
 <p align="center">
-  <a href="#project-overview">Project Overview</a> • <a href="#problem-statement">Problem Statement</a> • <a href="#solution">Solution</a> • <a href="#applied-tools--technologies">Applied Tools & Technologies</a> •
-  <a href="#architecture-diagram">Architecture Diagram</a> • <a href="#repository-inventory">Repository Inventory</a> •
+  <a href="#project-overview">Project Overview</a> • 
+  <a href="#problem-statement">Problem Statement</a> • 
+  <a href="#solution">Solution</a> • 
+  <a href="#applied-tools--technologies">Applied Tools & Technologies</a> •
+  <a href="#architecture-diagram">Architecture Diagram</a> • 
+  <a href="#repository-inventory">Repository Inventory</a> •
   <a href="#project-data">Project Data</a> •
   <a href="#medallion-architecture">Medallion Architecture</a> • 
-  <a href="#terraform">Terraform</a> •
+  <a href="#terraform-infrastructure-as-code">Terraform Infrastructure as Code</a> •
   <a href="#mage-orchestration">Mage Orchestration</a> •
-  <a href="#partitions-and-clusters">Partitions & Clusters</a> •
-  <a href="#Transformations & Data Build Tools (DBT)">Transformations & Data Build Tools (DBT)</a> •
+  <a href="#partitions--clusters">Partitions & Clusters</a> •
+  <a href="#Transformations--Data-Build-Tools">Transformations & Data Build Tools</a> •
   <a href="#testing">Testing</a> •
-  <a href="#dashboard-visualisation">Dashboard & Visualisation</a> •
-  <a href="#project-blockers">Project Blockers</a> •
-  <a href="#project-next-steps">Project Next Steps</a> •
+  <a href="#dashboard--visualisation">Dashboard & Visualisation</a> •
+  <a href="#further-ideas--next-steps">Further Ideas & Next Steps</a> •
   <a href="#licensing">Licensing</a> •
   <a href="#contributing--support">Contributing & Support</a> •
-  <a href="#acknowledgement--credits">Acknowledgement & Credits</a>
+  <a href="#acknowledgements--credits">Acknowledgements & Credits</a>
 </p>
 
 
@@ -243,7 +246,7 @@ Focusing on enriching the dataset with additional derived columns and establishi
 
 ----------------------------------------------
 
-### _Terraform (Infrastructure as Code (Iac))_
+### _Terraform Infrastructure as Code_
 
 ![Terraform](https://img.shields.io/badge/Terraform-1.7-black?style=flat&logo=terraform&logoColor=white&labelColor=573EDA)
 
@@ -341,7 +344,7 @@ The same script also clusters the data by `locationSource`, `net` & a new column
 
 ------------------------
 
-### _Transformations & Data Build Tools (DBT)_
+### _Transformations & Data Build Tools_
 
 **General Transformations**
 
@@ -433,7 +436,7 @@ The final fact table can be found [here](mage/mage-usgs-project/dbt/usgs_earthqu
 
 Here is the pipeline diagram for the `dbt_pipeline`. I chose to add this as a separate pipeline, although it is fully optional to integrate these blocks into your existing Mage pipeline (you could even just add one `dbt build` block to the end of your pipeline if you prefer) however, personally, I wanted to make use of the visualisation of the pipeline lineage (and incorporate all of the otherwise manual Command Line based input that wouldn't be automated) to be viewed as a whole process. 
 
-<img src="images/dbt_pipeline.jpg" alt="dbt_pipeline" height="400" width="500">
+<img src="images/dbt_pipeline.jpg" alt="dbt_pipeline" height="550" width="500">
 
 -----------------------------
 
@@ -550,9 +553,11 @@ I faced several issues with the project & of course, naturally came up with othe
 * Deploy the project as an app to [Google Cloud Run](https://cloud.google.com/run/). I didn't deem it necessary for the project at this size/level. However, with the future development, this could be a viable use case for a fully managed serverless platform such as Google Cloud Run.  
 * Leveraging Google Cloud Run would allow for the project to be a fully deployed, web hosted, containerised application with it's own API. 
 * Another important aspect is the implementation of an email alert system to notify relevant stakeholders of significant earthquakes, thereby enhancing the platform's responsiveness to critical events, with the potential investigation to rebuild the project as a streaming pipeline.
+* Issue with using `sftp` or `gcloud scp` to transfer files between the local host & the Virtual Machine due to company policy restrictions so had to use a screen prompt to ask the user to drag & drop their Service Account Credentials - not ideal, but I have included the other methods that can be uncommented if you don't have restrictions. 
 * Organise the Terraform files into a more modular format with distinct environments (Development, Staging & Production) to enhance deployment efficiency and management
 * If I'd had time to incorporate the additional layers of data I'd have liked to of used Google Data Proc's Apache Spark Cluster platform to process a larger dataset 
 * Again, if time were permitting I'd have like to of incorporated the amazing `dlt library` to perhaps process paginated data with auto schema inference & the serverless DuckDB engine plugin. 
+* Potentially using Regex to extra the Location data from the `place` string column or some other way of getting more location data from the coordinates, maybe using an API or reverse geocoding 
 * I would have liked to incorporate more testing in the DBT phase of the project had I had more time, however, Mage & DBT are not the easiest to figure out due to lack of documentation & it not being very intuitive. The course taught us DBT Cloud / Core, so figuring out how to use DBT in-built with the orchestration tool was a challenge, but certainly worth it. 
 * I'd like to somehow implement a failsafe mechanism to prevent data duplication when rerunning the pipelines manually. 
 * I'd also like to incorporate incremental loading of the data into DBT. At present, DBT reads the entire table & writes it back. At circa 42,000 rows (at the time of writing) this isn't too much of an issue but is not sustainable. It's not a concept taught during the course but once I have discovered myself. However, I would need to learn this thoroughly before deciding to attempt implementation as incorrect implementation could significantly risk the datasets integrity. Incremental materialisations are a powerful feature of dbt that allow for efficient updates to existing tables, reducing the need for full data refreshes 

@@ -64,13 +64,13 @@ update_env() {
             echo "This is the name of the Google Cloud Platform (GCP) project you just created e.g. usgs-data"
             ;;
         "GCP_LOCATION")
-            echo "This is the geographical location of the GCP resource e.g. US"
+            echo "This is the geographical location of the GCP resource e.g. US  & should be the same as your project"
             ;;
         "GCP_REGION")
-            echo "This is the GCP region where the resources will be deployed e.g. us-central1-c"
+            echo "This is the GCP region where the resources will be deployed e.g. us-central1-c  & should be the same as your project"
             ;;
         "GCP_ZONE")
-            echo "This is the GCP zone where the resources will be deployed e.g. us-central1"
+            echo "This is the GCP zone where the resources will be deployed e.g. us-central1 & should be the same as your project"
             ;;
         "GCP_GC_STORAGE_BUCKET_NAME")
             echo "This is the name of the Google Cloud Storage bucket e.g. usgs-raw-data"
