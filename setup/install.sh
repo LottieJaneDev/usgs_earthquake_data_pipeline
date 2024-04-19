@@ -151,10 +151,17 @@ gcloud auth activate-service-account --key-file=$VM_MAGE_SERVICE_ACCOUNT_FILE_PA
 # make sure that the VM's Operating System is up to day
 sudo apt-get update
 
+# tell the user what's about to happen as they'll need to interact with the shell to instlal Anaconda correctly 
+echo "Anaconda is about to be installed"
+echo "Please take a moment to review the Anaconda license agreement."
+echo "Press Enter to scroll to the bottom."
+echo "Once you've read the agreement, type 'yes' to agree to the terms and continue with the installation."
+echo "Choose 'yes' or 'y' where prompted to complete the installation"
+echo "After installation, you will see (base) at the start of your command line - this indicates that Anaconda is now the base interpreter"
+
 # Install Anaconda
 wget https://repo.anaconda.com/archive/Anaconda3-2024.02-1-Linux-x86_64.sh
-bash Anaconda3-2024.02-1-Linux-x86_64.sh -b -p $HOME/anaconda3
-rm Anaconda3-2024.02-1-Linux-x86_64.sh
+bash Anaconda3-2024.02-1-Linux-x86_64.sh -p $HOME/anaconda3 && rm Anaconda3-2024.02-1-Linux-x86_64.sh
 
 # Add Anaconda to PATH
 echo 'export PATH="$HOME/anaconda3/bin:$PATH"' >> ~/.bashrc
@@ -162,7 +169,6 @@ source ~/.bashrc
 
 # Initialize conda
 conda init bash
-source ~/.bashrc
 
 # Verify conda is installed correctly
 conda --version
@@ -173,6 +179,9 @@ conda create --name myenv python=3.9
 echo "=============================================================================="
 echo "---------------------- ANACONDA3 INSTALLED! ----------------------"
 echo "=============================================================================="
+
+# initialise Anaconda as the base interpreter 
+source ~/.bashrc
 
 # Install Docker
 sudo apt-get install -y docker.io
