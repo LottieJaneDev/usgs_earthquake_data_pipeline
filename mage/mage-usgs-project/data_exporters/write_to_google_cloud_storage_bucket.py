@@ -69,7 +69,7 @@ class TestDataExporterToGoogleCloudStorage(unittest.TestCase):
     def setUp(self):
         # Create a sample DataFrame for testing
         self.df = pd.DataFrame({
-            'time': pd.date_range(start='2023-04-01', end='2023-04-03'),
+            'time': pd.date_range(start='01-01-2023', end='03-01-2023'),
             'magnitude': [5.0, 6.2, 4.5]
         })
 
@@ -92,7 +92,7 @@ class TestDataExporterToGoogleCloudStorage(unittest.TestCase):
     def test_export_data_to_google_cloud_storage_update(self, mock_write_rows, mock_read_rows, mock_with_config):
         # Mock existing table
         existing_df = pd.DataFrame({
-            'time': pd.date_range(start='2024-04-01', end='2024-04-02'),
+            'time': pd.date_range(start='04-01-2023', end='05-01-2024'),
             'magnitude': [3.0, 4.5]
         })
 

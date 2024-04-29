@@ -41,7 +41,7 @@ def export_data(df):
         
         object_key = object_key_template.format(year=year, month=str(month).zfill(2))
         partition_folder = os.path.join(root_path, object_key)
-        partition_file_name = f"{year}-{month:02d}-{day:02d}-earthquakes-usgs.parquet"
+        partition_file_name = f"{day:02d}-{month:02d}-{year}-earthquakes-usgs.parquet"
         partition_file_path = os.path.join(partition_folder, partition_file_name)
         
         # Create the folder if it doesn't exist
@@ -54,7 +54,7 @@ def export_data(df):
         # Convert partition data to Arrow table and write to Parquet file
         partition_table = pa.Table.from_pandas(partition_data)
         pq.write_table(partition_table, partition_file_path, filesystem=gcs)
-        print(f"Exported data for {year}-{month:02d}-{day:02d} to: {partition_file_path}")
+        print(f"Exported data for {day:02d}-{month:02d}-{year} to: {partition_file_path}")
 
 
 
@@ -81,7 +81,7 @@ class TestDataExporter(unittest.TestCase):
     def setUp(self):
         # Create a DataFrame for testing (2023 before our first data point of 2024)
         self.df = pd.DataFrame({
-            'time': pd.date_range(start='2023-01-01', end='2023-01-03'),
+            'time': pd.date_range(start='01-01-2023', end='01-01-2023'),
             'magnitude': [5.0, 6.2, 4.5]
         })
 
@@ -97,12 +97,12 @@ class TestDataExporter(unittest.TestCase):
         year = today.strftime("%Y")
         object_key_template = "earthquakes/{year}/{month}/"
 
-        for date in pd.date_range(start='2024-01-01', end='2024-01-03'):
+        for date in pd.date_range(start='01-04-2024', end='03-04-2024'):
             year = date.year
             month = date.month
             day = date.day
             object_key = object_key_template.format(year=year, month=str(month).zfill(2))
-            partition_file_name = f"{year}-{month:02d}-{day:02d}-earthquakes-usgs.parquet"
+            partition_file_name = f"{day:02d}-{month:02d}-{year}-earthquakes-usgs.parquet"
             partition_file_path = os.path.join(bucket_name, object_key, partition_file_name)
 
             self.assertTrue(pa.fs.GcsFileSystem().exists(partition_file_path))

@@ -37,7 +37,7 @@ def load_data_from_api():
     # start_time = "2024-02-15T00:00:00"
     # end_time = "2024-04-05T00:00:00"
 
-    # start_time = "2024-04-13T00:00:00"
+    # start_time = "2024-04-05T00:00:00"
     # end_time = datetime.now().strftime("%Y-%m-%dT%H:%M:%S") # END TIME = NOW
     
     # url = f"https://earthquake.usgs.gov/fdsnws/event/1/query?format=csv&starttime={start_time}&endtime={end_time}"

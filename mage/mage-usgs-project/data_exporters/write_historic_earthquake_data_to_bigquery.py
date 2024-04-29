@@ -118,7 +118,7 @@ class TestDataExporter(unittest.TestCase):
     def setUp(self):
         # Create a sample DataFrame for testing - 2023 again 
         self.df = pd.DataFrame({
-            'time': pd.date_range(start='2023-01-01', end='2024-01-03'),
+            'time': pd.date_range(start='01-01-2023', end='03-01-2023'),
             'mag_cluster': ['0-1', '1-2', '2-3'],
             'locationSource': ['A', 'B', 'C'],
             'net': ['X', 'Y', 'Z']

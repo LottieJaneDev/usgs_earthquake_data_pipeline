@@ -48,7 +48,7 @@ blocks:
   language: python
   name: write_historic_earthquake_data_to_google_cloud_storage
   retry_config: null
-  status: executed
+  status: updated
   timeout: null
   type: data_exporter
   upstream_blocks:
@@ -64,7 +64,7 @@ blocks:
   language: python
   name: write_historic_earthquake_data_to_BigQuery
   retry_config: null
-  status: executed
+  status: updated
   timeout: null
   type: data_exporter
   upstream_blocks:
