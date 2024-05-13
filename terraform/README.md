@@ -20,7 +20,7 @@ NOTE - `terraform.tfvars` is best practice but for automation & reproducibility 
 
 To delete these resources, you will need to open [terraform.sh](../setup/terraform.sh) & uncomment the final `Terraform destroy` block OR.. run the [shutdown.sh](../setup/shutdown.sh) script when you have finished with the project for an automated way to destroy resources, kill Docker containers & log out of the virtual machine. 
 
-⚠️ Running `terraform destroy` will NOT destroy the Virtual Machine you manually created. Please see below & the setup.md for further information on how to dompletely close your GCP account and resources. 
+⚠️ Running `terraform destroy` will NOT destroy the Virtual Machine you manually created. Please see below & the setup.md for further information on how to completely close your GCP account and resources. 
 
 ```bash
  terraform destroy -auto-approve \
