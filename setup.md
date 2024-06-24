@@ -54,7 +54,7 @@ To run this project locally, you will need to adjust the set up instructions and
 6. Navigate to the [install.sh](setup/install.sh) & run it to install the following software onto your virtual machine: 
 
     ```bash
-    cd setup/ && ./install.sh
+    cd usgs_earthquake_data_pipeline/setup/ && ./install.sh
     ```
 
     * *Copy your Service Account Keys to the Virtual Machine*
