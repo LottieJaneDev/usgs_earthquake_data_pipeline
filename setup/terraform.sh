@@ -3,11 +3,11 @@
 # export the .env file at project root to the current shell session 
 # export $(grep -v '^#' "${ENV_FILE}" | xargs -d '\n') - DOESN'T WORK 
 
-cd ~/usgs_earthquake_data/ 
+cd ~/usgs_earthquake_data_pipeline/ 
 
 source .env 
 
-cd ~/usgs_earthquake_data/src/terraform/
+cd ~/usgs_earthquake_data_pipeline/terraform/
 
 # Activate the Terraform Service Account
 gcloud auth activate-service-account --key-file="$VM_TERRAFORM_SERVICE_ACCOUNT_FILE_PATH"
