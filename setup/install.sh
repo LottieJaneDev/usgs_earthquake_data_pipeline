@@ -236,7 +236,7 @@ echo "==========================================================================
 
 # check that we are in the right directory for this come the end... ?????
 echo "!IMPORTANT - Log out of your Virtual Machine and log back in (Remote SSH Connection) to have your Docker group membership re-evaluated."
-echo "You can then run `docker run hello-world` to confirm installation & configuration is complete"
+echo "You can then run 'docker run hello-world' to confirm installation & configuration is complete"
 sleep 5
 echo "Remember to install your IDE alternative for Terraform & Docker formatting if required (not compulsory)."
 echo "Head back to setup.md for the next steps!"
