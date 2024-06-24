@@ -124,7 +124,7 @@ Once you have created the SSH key connection as above, you simply need to open y
 
 It is considered best practice to maintain separate [service accounts](https://cloud.google.com/iam/docs/service-account-overview/) for each distinct service such as Docker, Terraform, DBT, and Mage. This approach enhances security and simplifies access control measures within a system. By assigning unique service accounts to each service, organisations can implement granular permissions, limiting the scope of access each service has to resources and data. In the event of a security breach or unauthorised access, the impact can be contained to the specific service affected, reducing the overall risk to the system.Separate service accounts also facilitate auditing and monitoring efforts, enabling administrators to track and analyse the activities of individual services more effectively. This segregation of duties contributes to a more robust and secure infrastructure overall.
 
-We will create the individual services accounts for each tool used in this project & assign their required roles accordingly.
+We will create the individual services accounts for each tool used in this project (Mage & Terraform) & assign their required roles accordingly.
 
 **Create Service Accounts:**
 
