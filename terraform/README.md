@@ -13,7 +13,7 @@ In Terraform, you'll encounter several essential commands: "terraform init" init
 Initialise Terraform by running the below code block: 
 
 ```bash
-cd ~/usgs_earthquake_data_pipeline/terraform/ && ./terraform.sh
+cd ~/usgs_earthquake_data_pipeline/setup/ && ./terraform.sh
 ```
 
 NOTE - `terraform.tfvars` is best practice but for automation & reproducibility purposes in this project we are passing the .env file across each tools environment. 
