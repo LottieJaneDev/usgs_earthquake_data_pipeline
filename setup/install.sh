@@ -140,8 +140,8 @@ echo "Variables updated in .env file."
 
 cd 
 
-export VM_TERRAFORM_SERVICE_ACCOUNT_FILE_PATH="/home/lottie/.gcp/terraform-service-account.json"
-export VM_MAGE_SERVICE_ACCOUNT_FILE_PATH="/home/lottie/.gcp/mage-service-account.json"
+export VM_TERRAFORM_SERVICE_ACCOUNT_FILE_PATH="/home/${USER}/.gcp/terraform-service-account.json"
+export VM_MAGE_SERVICE_ACCOUNT_FILE_PATH="/home/${USER}/.gcp/mage-service-account.json"
 
 # Authorise the GCP Service Accounts we created earlier 
 echo "Authorising Google Cloud Platform Service Accounts for Terraform & Mage.."
@@ -195,6 +195,14 @@ docker run hello-world
 echo "=============================================================================="
 echo "---------------------- DOCKER INSTALLED! ----------------------"
 echo "=============================================================================="
+
+sleep 4
+
+echo "========================================================================================================================="
+echo "you will need to restart the SSH connection once this script has completed to be able to confirm the docker installation"
+echo "========================================================================================================================="
+
+sleep 8
 
 # Install Docker Compose
 mkdir -p $HOME/bin
