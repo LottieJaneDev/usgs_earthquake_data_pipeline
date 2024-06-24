@@ -12,7 +12,7 @@ If you are unfamiliar with this way of working, I highly recommend following thi
 
     > NOTE:  You will need to provide a payment method to set up your GCP account, but nothing will be taken until after your 90 day free trial or your $300 free credits expire.
 
-2. Create a new project named `'usgs-data'`
+2. Create a new project named `'usgs-earthquake-data'`
 
 3. Enable the `Service Usage API` to allow for smooth interaction between Terraform & GCP during resource provisioning later on. Click here to manually enable the API for your project - [ENABLE SERVICE USAGE API](https://console.cloud.google.com/apis/library/serviceusage.googleapis.com/)
 
